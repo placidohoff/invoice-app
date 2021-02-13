@@ -1,0 +1,34 @@
+.labor__headers{
+    display: flex;
+    flex-direction: row;
+}
+
+.labor__header{
+    /* width: 600px; */
+        background-color: gray;
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        text-align: center;
+        font-weight: bold;
+}
+
+.labor__name{
+    width: 340px;
+}
+
+.labor__hrs{
+    width: 80px;
+}
+
+.labor__rate{
+    width: 80px;
+}
+
+.labor__amount{
+    width: 100px;
+}
+.labor__totalLabel{
+    width: 400px;
+    text-align: right;
+}

@@ -1,0 +1,23 @@
+
+
+@media only screen and (min-width: 640px){
+    .jobitem__qty{
+        width: 75px;
+        text-align: right;
+    }
+    .jobitem__material{
+        width: 268px;
+    }
+    .jobitem__price{
+        width: 72px;
+    }
+    .jobitem__amount{
+        width: 72px;
+    }
+}
+@media only screen and (max-width: 620px){
+
+}
+@media only screen and (max-width: 400px){
+
+}

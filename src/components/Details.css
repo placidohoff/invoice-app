@@ -1,0 +1,49 @@
+
+
+@media only screen and (min-width: 640px){
+    .details__headers{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .details__header{
+        width: 100px;
+        background-color: gray;
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        text-align: center;
+        font-weight: bold;
+    }
+        .details__qty{
+            width: 80px;
+        }
+        .details__material{
+            width: 275px
+        }
+        .details__price{
+            width: 80px;
+        }
+        .details__amount{
+            width: 80px;
+        }
+        .details__amount{
+            border-right: 1px solid black;
+        }
+        .details__bottom{
+            display: flex;
+            flex-direction: row;
+        }
+        .details__totalMaterialsLabel{
+            border: 1px solid black;
+            width: 165px;
+            text-align: center;
+        }
+
+}
+@media only screen and (max-width: 620px){
+
+}
+@media only screen and (max-width: 400px){
+
+}

@@ -1,0 +1,106 @@
+
+
+@media only screen and (min-width: 640px){
+    .header{
+        margin-top: -25px;
+        display: flex;
+        flex-direction: row;
+    
+    }
+    
+    .header__title{
+        margin-left: 20px;
+    }
+    
+    .header__title > h1 {
+        margin-bottom: 10px;
+    }
+    
+    .header__title > h4 {
+        margin-top: -15px;
+        margin-bottom: 10px;
+    }
+    
+    .header__title > p{
+        margin-top: -10px;
+        font-size: 12px;
+    }
+    
+    .header__invoice{
+        position: absolute;
+        right: 60px;
+    }
+    
+    .header__invoiceNumber{
+        margin-top: -25px;
+        margin-left: 25%;
+    }
+    
+    .header__invoicePhoneBox{
+        height: 10px;
+        width: 150px;
+    }
+    
+    .header__invoiceOrderDateBox{
+        width: 150px;
+    }
+
+    .header__invoiceOrderTakenBy{
+        width: 150px;
+    }
+
+    .header__invoiceCustomerNumber{
+        width: 150px;
+    }
+    .header__invoiceJobName{
+        width: 98%;
+    }
+}
+@media only screen and (max-width: 620px){
+    .header{
+        margin-top: -25px;
+        display: flex;
+        flex-direction: row;
+    
+    }
+    
+    .header__title{
+        margin-left: 20px;
+    }
+    
+    .header__title > h1 {
+        margin-bottom: 10px;
+    }
+    
+    .header__title > h4 {
+        margin-top: -15px;
+        margin-bottom: 10px;
+    }
+    
+    .header__title > p{
+        margin-top: -10px;
+        font-size: 12px;
+    }
+    
+    .header__invoice{
+        position: absolute;
+        right: 60px;
+    }
+    
+    .header__invoiceNumber{
+        margin-top: -25px;
+        margin-left: 25%;
+    }
+    
+    .header__invoicePhoneBox{
+        height: 10px;
+        width: 150px;
+    }
+    
+    .header__invoiceOrderDateBox{
+        width: 150px;
+    }
+}
+@media only screen and (max-width: 400px){
+
+}
