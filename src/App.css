@@ -1,5 +1,17 @@
+.app{
+  /* border: 3px solid black; */
+  width: 1000px;
+  /* margin-left: 5px; */
+}
+
 .app__mainBody{
   display: flex;
   flex-direction: row;
   /* width: 2000px; */
+}
+
+.App{
+  border: 3px solid black;
+  margin-left: 7px;
+  width: 787px;
 }

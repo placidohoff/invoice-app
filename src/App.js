@@ -179,6 +179,7 @@ function App() {
     <Router>
     <div className="app">
       <Switch>
+
         <Route path="/login">
           <Login />
           
@@ -204,20 +205,23 @@ function App() {
 
         <React.Fragment>  
 
-        <div className="App">
+        <div className="App"
+          ref={docToPrint}
+        >
             {/* <div
               ref={docToPrint}
-              style={{
-                borderRadius: "1px",
-                width: "100%",
-                height: "100%",
-                margin: "0 auto",
-                padding: "5mm"
-              }}
-            >
+              // style={{
+              //   borderRadius: "1px",
+              //   width: "4000px",
+              //   height: "100%",
+              //   margin: "0 auto",
+              //   padding: "5mm"
+              // }}
+            > */}
 
-            <Tester /> */}
+          <Tester />
           
+
           <Header 
             job = {job}
             save = {saveInvoice}
@@ -265,8 +269,8 @@ function App() {
             
           </div>
           {/* <Footer /> */}
-          </div>
           {/* </div> */}
+          </div>
         </ React.Fragment >
         </Route>
       
