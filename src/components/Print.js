@@ -18,7 +18,6 @@ export default function PrinterWrapper({ children }) {
             <ReactToPrint trigger={linkToPrint} content={() => componentRef.current} />
             <div ref={componentRef}>
                 {children}
-                <Login />
             </div>
         </>
     );

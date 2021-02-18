@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Header from './components/Header.js'
 import Details from './components/Details.js'
 import Footer from './components/Footer.js'
@@ -13,6 +13,14 @@ import Print from './components/Print.js'
 import { TextareaAutosize } from '@material-ui/core';
 import { useStateValue } from './components/StateProvider.js'
 import { db } from './firebase'
+
+import ReactToPrint from "react-to-print";
+import PrinterWrapper from './components/Print.js'
+import ReactDOM from "react-dom";
+import Pdf from "react-to-pdf";
+import Tester from './components/Tester.js'
+
+
 
 function App() {
   const [{user, jobName, job, docName, username}, dispatch] = useStateValue();
@@ -29,6 +37,7 @@ function App() {
   const [laborList, setLaborList] = useState(job.labor)
   const [headerInfo, setHeaderInfo] = useState(job.headerInfo)
   const [description, setDescription] = useState(job.description)
+  const [login, setLogin] = useState(<Login />) 
 
   const [footer, setFooter] = useState(
     <Footer 
@@ -154,6 +163,18 @@ function App() {
       }
     }
 
+    const Button = React.forwardRef((props, ref) => {
+      return (
+        <React.Fragment>
+          <Pdf targetRef={ref} filename="code-example.pdf">
+            {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+          </Pdf>
+        </React.Fragment>
+      );
+    });
+
+  let docToPrint = React.createRef();
+
   return (
     <Router>
     <div className="app">
@@ -172,31 +193,59 @@ function App() {
           <Print />
         </Route>
 
+        {/* <Route path="/pdf">
+          <ToPdf />
+        </Route> */}
+
         <Route path="/">
+        <div>
+          <Button ref={docToPrint} />
+        </div>
+
+        <React.Fragment>  
+
+        <div className="App">
+            {/* <div
+              ref={docToPrint}
+              style={{
+                borderRadius: "1px",
+                width: "100%",
+                height: "100%",
+                margin: "0 auto",
+                padding: "5mm"
+              }}
+            >
+
+            <Tester /> */}
+          
           <Header 
             job = {job}
             save = {saveInvoice}
           />
           <br />
           <div className="app__mainBody">
+          
             <Details 
               calculate = {calculateTotal}
               materials = {materialsList}
               save = {saveInvoice}
             />
             <div>
-              <Description 
-                // calculate = {calculateTotal}
-                save = {saveInvoice}
-              />
-              <OtherCharges 
-                calculate = {calculateTotal}
-                save = {saveInvoice}
-              />
-              <Labor 
-                calculate = {calculateTotal}
-                save = {saveInvoice}
-              />
+              
+              
+                <Description 
+                  // calculate = {calculateTotal}
+                  save = {saveInvoice}
+                />
+                <OtherCharges 
+                  calculate = {calculateTotal}
+                  save = {saveInvoice}
+                />
+                <Labor 
+                  calculate = {calculateTotal}
+                  save = {saveInvoice}
+                />
+              
               {/* {footer} */}
               <Footer 
                 totalLabor = {totalLabor}
@@ -211,9 +260,14 @@ function App() {
               >
                 Save Invoice
               </button>
+              
             </div>
+            
           </div>
           {/* <Footer /> */}
+          </div>
+          {/* </div> */}
+        </ React.Fragment >
         </Route>
       
 

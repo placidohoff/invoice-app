@@ -1,0 +1,13 @@
+.tester{
+    /* border: 1px solid black; */
+    /* width: 1000; */
+    /* margin: auto; */
+    display: flex;
+    flex-direction: row;
+}
+
+.tester__test{
+    border: 1px solid black;
+    /* width: 2550px; */
+    flex-grow: 2;
+}

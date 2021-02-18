@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StateProvider } from './components/StateProvider.js'
 import reducer, { initialState } from './components/reducer.js'
+import ReactToPrint from "react-to-print";
+import PrinterWrapper from './components/Print.js'
 
 
 ReactDOM.render(

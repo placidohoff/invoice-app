@@ -1,4 +1,5 @@
 .app__mainBody{
   display: flex;
   flex-direction: row;
+  /* width: 2000px; */
 }
