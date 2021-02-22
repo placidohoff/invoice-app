@@ -70,11 +70,13 @@ function App() {
     }, [materialsList, otherChargesList, laborList, headerInfo, description])
 
     const calculateTotal = (obj) => {
+      console.log(obj)
       if(obj.category === 'materials'){
-        setTotalMaterials(obj.value)
+        setTotalMaterials(Number(obj.value))
       }
       else if(obj.category === 'labor'){
-        setTotalLabor(obj.value)
+        console.log(obj.value)
+        setTotalLabor(Number(obj.value))
         dispatch({
           type:'SAVE_OTHERS',
           item: {
@@ -83,7 +85,8 @@ function App() {
         })
       }
       else if(obj.category === 'other'){
-        setTotalOther(obj.value)
+        setTotalOther(Number(obj.value))
+        console.log(obj.value)
       }
       
        
@@ -208,16 +211,16 @@ function App() {
         <div className="App"
           ref={docToPrint}
         >
-            {/* <div
+            <div
               ref={docToPrint}
-              // style={{
-              //   borderRadius: "1px",
-              //   width: "4000px",
-              //   height: "100%",
-              //   margin: "0 auto",
-              //   padding: "5mm"
-              // }}
-            > */}
+              style={{
+                borderRadius: "1px",
+                width: "8000px",
+                height: "100%",
+                margin: "0 auto",
+                padding: "5mm"
+              }}
+            >
 
           <Tester />
           
@@ -269,7 +272,7 @@ function App() {
             
           </div>
           {/* <Footer /> */}
-          {/* </div> */}
+          </div>
           </div>
         </ React.Fragment >
         </Route>

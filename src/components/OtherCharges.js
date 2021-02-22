@@ -9,10 +9,20 @@ function OtherCharges(props){
     const [{user, jobName, job}, dispatch] = useStateValue();
     const [items, setItems] = useState(job.otherCharges)
     const [total, setTotal] = useState(job.totalOther)
-    const [totals, setTotals] = useState([items[0].price])
+    
     const [label, setLabel] = useState("Total Other:")
         
     const history = useHistory();
+
+    const findTotals = () => {
+        let charges = [];
+        for(let i = 0; i < items.length; i++){
+            charges.push(items[i].price)
+        }
+        return charges;
+    }
+
+    const [totals, setTotals] = useState(findTotals)
 
     const makeNew = (e) => {
         setItems([...items, {description:'', price:0}])
@@ -21,7 +31,7 @@ function OtherCharges(props){
     const calculateTotal = (obj) => {
         console.log(obj)
         // setTotal(obj.price)
-        totals[obj.index] = obj.price;
+        totals[obj.index] = Number(obj.price);
         let total = 0;
         for(let i = 0; i < totals.length; i++){
             total += Number(totals[i])

@@ -8,10 +8,21 @@ function Labor(props){
     const [{user, jobName, job}, dispatch] = useStateValue();
     const [items, setItems] = useState(job.labor)
     const [total, setTotal] = useState(job.totalLabor)
-    const [totals, setTotals] = useState([items[0].amount])
+    
     const [label, setLabel] = useState("Total Labor:")
         
     const history = useHistory();
+
+    const findTotals = () => {
+        let amounts = [];
+        for(let i = 0; i < items.length; i++){
+            amounts.push(items[i].amount)
+        }
+        return amounts;
+    }
+
+    const [totals, setTotals] = useState(findTotals)
+
 
     const saveItem = (obj) => {
         items[obj.index] = obj.labor

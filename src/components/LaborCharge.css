@@ -1,15 +1,21 @@
 .laborcharge__name{
-    width: 335px;
+    width: 180px;
 }
 
 .laborcharge__hours{
-    width: 73px;
+    width: 42px;
+    font-size: 11px;
+    height: 15px;
 }
 
 .laborcharge__rate{
-    width: 73px;
+    width: 42px;
+    font-size: 11px;
+    height: 15px;
 }
 
 .laborcharge__amount{
-    width: 92px;
+    width: 60px;
+    font-size: 11px;
+    height: 15px;
 }

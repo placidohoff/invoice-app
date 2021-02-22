@@ -3,6 +3,7 @@ import './ViewJobs.css'
 import { useStateValue } from './StateProvider.js'
 import { useHistory } from 'react-router-dom'
 import { db } from '../firebase.js'
+import { jobData } from './Empty.js'
 
 
 function ViewJobs(){
@@ -71,6 +72,22 @@ function ViewJobs(){
                 There are currently 0 Jobs saved here
             </div>
         }
+        <div
+            onClick={e => {
+                dispatch({
+                    type: 'NEW_JOB',
+                    item: {
+                        jobData: jobData,
+                        jobName: jobData.jobName,
+                        docName: '',
+                        username: username[0]
+                    }
+                })
+                history.push('/jobdetails')
+            }}
+        >
+            New Job
+        </div>
         </div>
     )
 }

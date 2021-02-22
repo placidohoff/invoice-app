@@ -1,27 +1,44 @@
 .footer__laborLabel{
     text-align: right;
-    width: 335px;
+    width: 200px;
 }
 .footer__materialsLabel{
     text-align: right;
-    width: 400px;
+    width: 279px;
 }
 .footer__otherLabel{
     text-align: right;
-    width: 400px;
+    width: 279px;
 }
 .footer__blank{
-    width: 400px;
+    width: 171px;
 }
 .footer__taxLabel{
-    width: 200px;
+    width: 102px;
     text-align: right;
 }
+.footer__tax{
+    width: 61px;
+}
 .footer__totalLabel{
-    width: 200px;
+    width: 102px;
     text-align: right;
 }
 .footer__bottom{
     display: flex;
     flex-direction: row;
 }
+
+.footer__materialsTotal{
+    width: 61px;
+}
+
+.footer__otherTotal{
+    width: 61px;
+}
+
+
+.footer__total{
+    width: 61px;
+}
+

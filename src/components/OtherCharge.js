@@ -11,13 +11,14 @@ function OtherCharge(props){
 
     return(
         <div className="othercharge">
-            <input 
+            <textarea 
                 type="text"   
                 className="othercharge__description"
                 value={description}
                 onChange={e => {setDescription(e.target.value)}}
-                
-            />
+                rows="2"
+            >
+            </textarea>
             <input
                 type="number"
                 className="othercharge__price"

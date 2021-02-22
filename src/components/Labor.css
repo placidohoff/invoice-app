@@ -1,3 +1,6 @@
+.labor{
+    margin-top: 2px;
+}
 .labor__headers{
     display: flex;
     flex-direction: row;
@@ -14,21 +17,26 @@
 }
 
 .labor__name{
-    width: 340px;
+    width: 186px;
 }
 
 .labor__hrs{
-    width: 80px;
+    width: 50px;
 }
 
 .labor__rate{
-    width: 80px;
+    width: 47px;
 }
 
 .labor__amount{
-    width: 100px;
+    width: 70px;
+    font-size: 15px;
 }
 .labor__totalLabel{
-    width: 400px;
+    width: 279px;
     text-align: right;
+}
+
+.labor__total{
+    width: 61px
 }

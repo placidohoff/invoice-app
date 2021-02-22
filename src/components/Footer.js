@@ -1,7 +1,9 @@
 import './Footer.css'
+import { useState } from 'react'
 
 function Footer(props){
     // console.log(props)
+    const [tax, setTax] = useState(0)
     return(
         <div className="footer">
             <input 
@@ -45,7 +47,9 @@ function Footer(props){
                     value={"Tax:"}
                 />
                 <input 
-                
+                    type="text"
+                    className="footer__tax"
+                    value={tax}
                 />
                 <br/>
                 <input 

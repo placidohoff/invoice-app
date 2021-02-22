@@ -1,8 +1,5 @@
 export const initialState = {
-    user: '',
-    username: '',
-    jobName: '',
-    docName : '',
+     
     job:{
         username: '',
         jobName: '',
@@ -73,6 +70,14 @@ const reducer = (state, action) => {
             state.username = action.item.username
             return{
                 // ...state,
+                job: action.item.jobData,
+                jobName: action.item.jobName,
+                docName: action.item.docName,
+                username: action.item.username
+            }
+        case 'NEW_JOB':
+            console.log('New Job')
+            return{
                 job: action.item.jobData,
                 jobName: action.item.jobName,
                 docName: action.item.docName,

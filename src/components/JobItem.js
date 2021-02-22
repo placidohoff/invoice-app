@@ -7,6 +7,7 @@ function JobItem(props){
     const [material, setMaterial] = useState(props.material);
     const [price, setPrice] = useState(props.price)
     const [amount, setAmount] = useState(props.amount)
+    const [isActive, setIsActive] = useState(false)
 
     useEffect(() => {
         setAmount((price*qty).toFixed(2))
@@ -17,6 +18,17 @@ function JobItem(props){
         
     }, [price, qty, amount])
 
+    useEffect(() => {
+        if(material === ''){
+            setIsActive(false)
+            setQty('')
+            setPrice('')
+            setAmount('')
+        }else{
+            setIsActive(true)
+        }
+    }, [material])
+
     
 
     return(
@@ -26,11 +38,13 @@ function JobItem(props){
                 type="number"   
                 className="jobitem__qty"
                 value={qty}
-                onChange={e => {setQty(e.target.value); setAmount((price*qty).toFixed(2));
+                onChange={e => {
+                    setQty(e.target.value); 
+                    qty === 0 || price === 0 ? setAmount('') : setAmount((price*qty).toFixed(2));
                     props.calculateTotal({amount:amount, index: props.index})
                 
                 }}
-                onBlur={e => {setPrice(Number(e.target.value).toFixed(2)); setAmount((price*qty).toFixed(2));
+                onBlur={e => {setAmount((price*qty).toFixed(2));
                     props.calculateTotal({amount:amount, index: props.index})}}
 
                    
@@ -45,11 +59,25 @@ function JobItem(props){
                 type="number"   
                 className="jobitem__price"
                 value={price}
-                onChange={e => {setPrice(e.target.value); setAmount(price*qty)}}
-                onBlur={e => {setPrice(Number(e.target.value).toFixed(2)); setAmount((price*qty).toFixed(2));
-                    props.calculateTotal({amount:amount, index: props.index})
+                onChange={e => {
+                    setPrice(e.target.value); 
+                    qty === 0 || price === 0 ? setAmount('') : setAmount((price*qty).toFixed(2));
+
+                    amount === '' ? setAmount('') : setAmount((price*qty).toFixed(2));}
+                }
+                onBlur={e => {
+                    setPrice(Number(e.target.value).toFixed(2)); 
+                    {/*amount === '' ? setAmount('') : */}setAmount((price*qty).toFixed(2));
+                    {/*amount === '' ? setAmount('') : */} props.calculateTotal({amount:amount, index: props.index})
             }}
             />
+            {/* {
+                qty === '' && price === '' 
+                ?
+                setAmount('')
+                :
+                setAmount(price * qty)
+            } */}
             <input 
                 type="number"   
                 className="jobitem__amount"

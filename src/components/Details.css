@@ -4,6 +4,7 @@
     .details__headers{
         display: flex;
         flex-direction: row;
+        margin-left: -15px;
     }
 
     .details__header{
@@ -14,18 +15,19 @@
         border-bottom: 1px solid black;
         text-align: center;
         font-weight: bold;
+        font-size: 14px;
     }
         .details__qty{
-            width: 80px;
+            width: 45px;
         }
         .details__material{
-            width: 275px
+            width: 248px
         }
         .details__price{
-            width: 80px;
+            width: 62px;
         }
         .details__amount{
-            width: 80px;
+            width: 65px;
         }
         .details__amount{
             border-right: 1px solid black;
@@ -33,11 +35,19 @@
         .details__bottom{
             display: flex;
             flex-direction: row;
+            margin-left: -15px;;
         }
         .details__totalMaterialsLabel{
             border: 1px solid black;
-            width: 165px;
+            width: 162px;
             text-align: center;
+        }
+
+        .details__dateCompleted{
+            width: 160px;
+        }
+        .details__totalMaterialsBox{
+            width: 85px;
         }
 
 }

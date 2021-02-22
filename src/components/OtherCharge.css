@@ -1,4 +1,14 @@
+.othercharge{
+    margin-bottom: -2px;
+}
 .othercharge__description{
-    width: 400px;
+    width: 285px;
     /* height: 40px; */
+}
+
+.othercharge__price{
+    position: absolute;
+    width: 55px;
+    height: 30px;
+    /* margin-top: px; */
 }

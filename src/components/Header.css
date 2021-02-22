@@ -27,8 +27,9 @@
     }
     
     .header__invoice{
-        position: absolute;
-        right: 60px;
+        /* position: absolute;
+        right: 60px; */
+        margin-left: 120px;
     }
     
     .header__invoiceNumber{
@@ -83,8 +84,9 @@
     }
     
     .header__invoice{
-        position: absolute;
-        right: 60px;
+        /* position: absolute;
+        right: 60px; */
+        margin-left: 10px;
     }
     
     .header__invoiceNumber{
