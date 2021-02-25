@@ -11,6 +11,19 @@ function LaborCharge(props){
         props.saveItem({index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}})
     }, [name,hours,rate])
 
+    useEffect(() => {
+        name === '' ? setAmount('')  : setAmount(hours * rate)
+    },[hours, name, amount])
+
+    useEffect(() => {
+        if(name === ''){
+            // setIsActive(false)
+            setHours('')
+            setRate('')
+            setAmount('')
+        }
+    }, [name])
+
     return(
         <div className="laborcharge">
             <input 
@@ -32,12 +45,16 @@ function LaborCharge(props){
                 className="laborcharge__rate"
                 value={rate}
                 onChange={e => {setRate(e.target.value)}}
-                onBlur={e => {setRate(Number(rate).toFixed(1)); setAmount(rate*hours); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index})}}
+                onBlur={e => {
+                    setRate(Number(rate).toFixed(1)); 
+                    name === '' ? setAmount('') : setAmount(Number(rate*hours).toFixed(2)); 
+                    name === '' ? setAmount('') : props.calculate({hours: hours, rate: rate, amount: amount, index: props.index})}}
             />
             <input
                 type="number"
                 className="laborcharge__amount"
-                value={Number(amount).toFixed(2)}
+                //value={Number(amount).toFixed(2)}
+                value={amount}
                 // onChange={e => {setAmount(e.target.value)}}
                 // onBlur={e => {setAmount(Number(amount).toFixed(1)); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index})}}
             />

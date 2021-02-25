@@ -10,7 +10,10 @@ function JobItem(props){
     const [isActive, setIsActive] = useState(false)
 
     useEffect(() => {
+        material === '' ? setAmount('') 
+        :
         setAmount((price*qty).toFixed(2))
+        
         props.calculateTotal({amount:amount, index: props.index})
         //setPrice((price).toFixed(2))
         //Within this function perhaps I can dispatch to lessen the state changes loop
@@ -67,8 +70,8 @@ function JobItem(props){
                 }
                 onBlur={e => {
                     setPrice(Number(e.target.value).toFixed(2)); 
-                    {/*amount === '' ? setAmount('') : */}setAmount((price*qty).toFixed(2));
-                    {/*amount === '' ? setAmount('') : */} props.calculateTotal({amount:amount, index: props.index})
+                    material === '' ? setAmount('') : setAmount((price*qty).toFixed(2));
+                    material === '' ? setAmount('') :  props.calculateTotal({amount:amount, index: props.index})
             }}
             />
             {/* {

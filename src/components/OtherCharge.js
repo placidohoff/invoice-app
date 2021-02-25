@@ -9,6 +9,10 @@ function OtherCharge(props){
         props.saveItem({index: props.index, otherCharge:{description: description, price:price}})
     }, [description,price])
 
+    useEffect(() => {
+        description === '' ? setPrice('') : setPrice(price)
+    },[price])
+
     return(
         <div className="othercharge">
             <textarea 
