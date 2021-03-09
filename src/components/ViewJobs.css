@@ -1,0 +1,33 @@
+.viewjobs{
+    margin-left: 20px;
+}
+
+.viewjobs__container{
+    border: 1px solid black;
+    margin-bottom: 15px;
+    /* display: flex; */
+    /* flex-direction: row; */
+}
+
+.viewjobs__name{
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: underline;
+
+    /* margin-bottom: 40px; */
+    /* width: 100%; */
+}
+
+.viewjobs__del{
+    color: red;
+    margin-left: 5px;
+    border: 1px solid black;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 10px;
+    /* margin-top: -15px; */
+    /* padding-bottom: -5px; */
+    height: 15px;
+    cursor: default;
+}

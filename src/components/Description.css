@@ -1,5 +1,5 @@
 .description__header{
-    width: 355px;
+    width: 360px;
         background-color: gray;
         border-left: 1px solid black;
         border-top: 1px solid black;
@@ -11,5 +11,5 @@
 .description__body{
     border: 1px solid black;
     height: 120px;
-    width: 350px;
+    width: 355px;
 }

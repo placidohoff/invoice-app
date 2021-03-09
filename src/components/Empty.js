@@ -1,7 +1,12 @@
 
+// import React from 'react';
+// import { useStateValue } from './StateProvider.js'
+
+// const [{invoiceNumber}] = useStateValue();
 const labors = getItems('labor');
 const materials = getItems('materials');
 const charges = getItems('other')
+
 
 function getItems(type){
     let items = []
@@ -41,7 +46,9 @@ function getItems(type){
 }
 
 export const jobData = {
+    //invoiceNumber: invoiceNumber + 1 ,
     description: '',
+    isNew: true,
     headerInfo: {
         address: '',
         cityState: '',
@@ -53,7 +60,7 @@ export const jobData = {
         startingDate: '',
         type: 'extra'
     },
-    jobName: 'Test',
+    jobName: '',
     labor: labors,
     materials: materials,
     otherCharges: charges,

@@ -1,6 +1,10 @@
 export const initialState = {
-     
+    user:'', 
+    // invoiceNumber: 123456,
+    //isNew: false,
     job:{
+        // invoiceNumber: 123456,
+        isNew: false,
         username: '',
         jobName: '',
         headerInfo:{
@@ -68,20 +72,44 @@ const reducer = (state, action) => {
             state.jobName = action.item.jobName
             state.docName = action.item.docName
             state.username = action.item.username
+            state.invoiceNumber = action.item.invoiceNumber
             return{
                 // ...state,
                 job: action.item.jobData,
                 jobName: action.item.jobName,
                 docName: action.item.docName,
-                username: action.item.username
+                username: action.item.username,
+                invoiceNumber: action.item.invoiceNumber
             }
         case 'NEW_JOB':
             console.log('New Job')
+            state.docName = action.item.docName
+            state.jobName = action.item.jobName
+            state.isNew = true
+            state.job.isNew = true;
+            state.invoiceNumber = action.item.invoiceNumber
+            
             return{
                 job: action.item.jobData,
                 jobName: action.item.jobName,
-                docName: action.item.docName,
-                username: action.item.username
+                docName: action.item.doc,
+                username: action.item.username,
+                invoiceNumber: action.item.invoiceNumber
+                //isNew: action.item.isNew
+            }
+        case 'TRACK_INVOICE_NUM':
+
+            state.invoiceNumber = action.item.invoiceNumber
+            console.log(action.item.invoiceNumber)
+            return{
+                ...state,
+                invoiceNumber: action.item.invoiceNumber
+            }
+        case 'INVOICE_INCREMENTED':
+            console.log("INCREMENTED!")
+            state.job.isNew = false
+            return{
+                ...state
             }
         case 'OVERWRITE':
             

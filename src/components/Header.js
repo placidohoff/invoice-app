@@ -6,9 +6,11 @@ import { useStateValue } from './StateProvider.js'
 
 
 function Header(props){
-    //const [{jobName, job}, dispatch] = useStateValue();
+    const [{jobName, job, invoiceNumber}, dispatch] = useStateValue();
     
     const [jobObject, setJobObject] = useState(props.job)
+
+    const [isNew, setIsNew] = useState(props.job.isNew)
 
     const [phone, setPhone] = useState(jobObject.headerInfo.phone)
     const [phoneLabel, setPhoneLabel] = useState(`Phone: ${phone}`)
@@ -42,6 +44,8 @@ function Header(props){
     const [startingDate, setStartingDate] = useState(jobObject.headerInfo.startingDate)
     const [startingDateLabel, setStartingDateLabel] = useState(`Starting Date: ${startingDate}`)
     
+    //const [invoiceNum, setInvoiceNum] = useState(invoiceNum)
+
     const save = () => {
         //console.log("Hello")
         setJobObject({
@@ -74,10 +78,25 @@ function Header(props){
 
     }
 
+    const blank = '                                                                '
+    const blankk = '                                                                     '
+
+    const lineStyle = {
+        // textDecoration: 'underline', 
+        whiteSpace: 'pre', 
+        // width: '200px'
+        borderBottom: '1px solid black',
+        minWidth: '200px'
+    }
+
     useEffect(() => {
         props.save({type: 'header', headerInfo:{phone:phone, orderDate:orderDate, orderTakenBy: orderTakenBy, orderNumber:orderNumber, type: type, name: name, address: address, cityState: cityState, phone: phone, startingDate: startingDate}})
         
     }, [phone, orderDate, orderTakenBy, orderNumber, name, jobLocation, phone, startingDate, type])
+
+    useEffect(() => {
+        console.log(isNew)
+    })
 
 
 
@@ -88,16 +107,28 @@ function Header(props){
                 <h4>Electrical Contractor</h4>
                 <p>Tel: (855)644-1748 * (888)55-CALLRCI</p>
                 <p>E-mail: us@Quotemyelectrical@gmail.com</p>
-                <span>To: _________________________________</span><br />
+                <span>To:</span><span style={lineStyle}>{blank}</span><br />
+                <span style={lineStyle}>{blankk}</span><br />
+                <span style={lineStyle}>{blankk}</span><br />
+                <span style={lineStyle}>{blankk}</span><br />
+                <span style={lineStyle}>{blankk}</span><br />
+                <span style={lineStyle}>{blankk}</span><br />
+
+
+                {/* <span>To: _________________________________</span><br />
                 <span>_____________________________________</span><br />
-                <span>_____________________________________</span><br />
-                <span>_____________________________________</span><br />
+                <span>_____________________________________</span><br /> 
+                <span>_____________________________________</span><br /> */}
             </div>
             <div className="header__invoice">
-                <h1>JOB INVOICE</h1>
+                <h1
+                    style={{marginLeft: '25%'}}
+                >
+                    JOB INVOICE
+                </h1>
                 
                 <div className="header__invoiceNumber">
-                    No. 019163
+                    No. {invoiceNumber}
                 </div>
                 <input 
                     type="text" 
@@ -135,47 +166,45 @@ function Header(props){
                     onBlur = {e => {setOrderNumberLabel(`Order Number: ${orderNumber}`)}}
                 />
                 <br />
-                <Checkbox
-                    value="checkedA"
-                    inputProps={{ 'aria-label': 'Checkbox A' }}
-                    label="lnlnlk"
-                    color='default'
-                    size="small"
-                    checked={type === 'daywork'}
-                    onChange={e => {setType('daywork')}}
-                />
-                <span>Daywork</span>
-                <Checkbox
-                    value="checkedA"
-                    inputProps={{ 'aria-label': 'Checkbox A' }}
-                    label="lnlnlk"
-                    color='default'
-                    size="small"
-                    checked={type === 'contract'}
-                    onChange={e => {setType('contract')}}
-                />
-                <span>Contract</span>
-                <Checkbox
-                    value="checkedA"
-                    inputProps={{ 'aria-label': 'Checkbox A' }}
-                    label="lnlnlk"
-                    color='default'
-                    size="small"
-                    checked={type === 'extra'}
-                    onChange={e => {setType('extra')}}
-                    // onClick={e => {type === 'extra'? type = '' : type === 'extra'}}
-                    // onClick={handleTypeChange}
-                />
-                <span>Extra</span>
+                <div
+                    style={{
+                        marginBottom: '-15px',
+                        marginTop: '5px',
+                        marginLeft: '20px'
+                    }}
+                >
+                    <input 
+                        type="checkbox" 
+                        checked={type === 'daywork'} 
+                        size="small"
+                        onChange={e => {setType('daywork')}}>
+                    </input>
+                    <span style={{marginRight:'10px'}}>Daywork</span>
+                    <input 
+                        type="checkbox" 
+                        checked={type === 'contract'} 
+                        size="small"
+                        onChange={e => {setType('contract')}}>
+                    </input>
+                    <span style={{marginRight:'10px'}}>Contract</span>
+                    <input 
+                        type="checkbox" 
+                        checked={type === 'extra'} 
+                        size="small"
+                        onChange={e => {setType('extra')}}>
+                    </input>
+                    <span>Extra</span>
+                </div>
                 <br />
                 <input 
+                    style={{marginTop: '-20px'}}
                     type="text" 
                     placeholder="Job Name" 
                     className="header__invoiceJobName"
                     value={nameLabel}
                     onClick = {e => {setNameLabel(name)}}
                     onChange = {e => {setNameLabel(e.target.value); setName(e.target.value)}} 
-                    onBlur = {e => {setNameLabel(`Job Name:${name}`)}}
+                    onBlur = {e => {setNameLabel(`Job Name: ${name}`)}}
  
                 />
                 <br />

@@ -1,7 +1,7 @@
 .app{
-  /* border: 3px solid black; */
-  width: 1000px;
-  /* margin-left: 5px; */
+  /* border: 1px solid black; */
+  width: 800px;
+  /* margin-left: 15%;; */
 }
 
 .app__mainBody{
@@ -11,7 +11,15 @@
 }
 
 .App{
-  border: 3px solid black;
-  margin-left: 7px;
+  border: 1px solid black;
+  margin-left: 40%;
   width: 787px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.App__backbn{
+  margin-top: -50px;
+  margin-left: 150px;
+  position: absolute;
 }

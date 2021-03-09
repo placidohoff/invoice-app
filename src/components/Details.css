@@ -21,7 +21,7 @@
             width: 45px;
         }
         .details__material{
-            width: 248px
+            width: 238px
         }
         .details__price{
             width: 62px;
@@ -47,7 +47,7 @@
             width: 160px;
         }
         .details__totalMaterialsBox{
-            width: 85px;
+            width: 75px;
         }
 
 }

@@ -32,7 +32,7 @@ function Footer(props){
                 <input 
                     type="text"
                     className="footer__thankyou"
-                    value="Thankyou"
+                    value="Thank You"
                 />
                 <div>
                 <input 
@@ -64,6 +64,7 @@ function Footer(props){
                 />
             </div>
             </div>
+            <br /> <br /> <br />
         </div>
     )
 }

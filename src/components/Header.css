@@ -9,7 +9,7 @@
     }
     
     .header__title{
-        margin-left: 20px;
+        /* margin-left: 20px; */
     }
     
     .header__title > h1 {
@@ -29,12 +29,12 @@
     .header__invoice{
         /* position: absolute;
         right: 60px; */
-        margin-left: 120px;
+        margin-left: 100px;
     }
     
     .header__invoiceNumber{
         margin-top: -25px;
-        margin-left: 25%;
+        margin-left: 35%;
     }
     
     .header__invoicePhoneBox{

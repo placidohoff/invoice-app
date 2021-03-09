@@ -1,3 +1,6 @@
+.footer{
+    /* margin-top: -20px; */
+}
 .footer__laborLabel{
     text-align: right;
     width: 200px;
@@ -42,3 +45,9 @@
     width: 61px;
 }
 
+.footer__thankyou{
+    font-family: "Brush Script MT", cursive;
+    font-size: 25px;
+    text-align: center;
+    /* margin-left: 15px; */
+}

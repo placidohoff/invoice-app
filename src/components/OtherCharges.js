@@ -47,6 +47,19 @@ function OtherCharges(props){
         //console.log(items)
     }
 
+    useEffect(() => {
+        let tot = 0
+        for(let i = 0; i < items.length; i++){
+            // if(items)
+            tot += Number(items[i].price)
+            console.log(items[i].price)
+        }
+        setTotal(Number(tot).toFixed(2))
+        props.calculate({category:'other', value:total})
+
+        console.log(`TOTAL ${total}`)
+    },[])
+
 
     return(
         <div className="othercharges">
@@ -63,11 +76,11 @@ function OtherCharges(props){
                     />
                 ))
             }
-            <button
+            {/* <button
                 onClick={makeNew}
             >
                 Add New
-            </button>
+            </button> */}
             <br/><br/>
             <input 
                 type="text"
@@ -79,7 +92,10 @@ function OtherCharges(props){
                 type="number"
                 className="othercharges__total"
                 value={Number(total).toFixed(2)}
-                onChange={props.calculate({category:'other', value:total})}
+                onChange={
+                    props.calculate({category:'other', value:total}),
+                    props.save({type: 'other', otherCharges: items})
+                }
 
             />
         </div>

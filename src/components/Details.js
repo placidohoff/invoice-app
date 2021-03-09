@@ -134,7 +134,7 @@ function Details(props){
             }
             
 
-            <button onClick={makeNew}>Add New</button>
+            {/* <button onClick={makeNew}>Add New</button> */}
             <br /><br />
             <div className="details__bottom">
             <input 
@@ -149,9 +149,7 @@ function Details(props){
                 value={Number((total)).toFixed(2)}
                 onChange={
                     props.calculate({category:'materials', value:total}),
-                    //saveMaterial()
-                    // props.save(items)
-                    // console.log('yoooooo')
+                    
                     props.save({type:"materials", materials:items})
                 }
             />

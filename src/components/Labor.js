@@ -61,6 +61,20 @@ function Labor(props){
 
     }
 
+    useEffect(() => {
+        let tot = 0
+        for(let i = 0; i < items.length; i++){
+            // if(items)
+            tot += Number(items[i].amount)
+            // console.log(items[i].amount)
+        }
+        setTotal(Number(tot).toFixed(2))
+        props.calculate({category:'labor', value:total})
+
+        // console.log(`TOTAL ${total}`)
+    },[])
+
+
 
     return(
         <div className="labor">
@@ -92,12 +106,12 @@ function Labor(props){
                     />
                 ))
             }
-            <button
+            {/* <button
                 onClick={makeNew}
             >
                 Add New
-            </button>
-            <br/><br/>
+            </button> */}
+            <br/>
             <input 
                 type="text"
                 className="labor__totalLabel"
@@ -108,7 +122,10 @@ function Labor(props){
                 type="number"
                 className="labor__total"
                 value={Number(total).toFixed(2)}
-                onChange={props.calculate({category:'labor', value:total})}
+                onChange={
+                    props.calculate({category:'labor', value:total}),
+                    props.save({type: 'labor', labor: items})
+                }
 
             />
         </div>

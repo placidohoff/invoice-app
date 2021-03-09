@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Header from './components/Header.js'
 import Details from './components/Details.js'
 import Footer from './components/Footer.js'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from "react-router-dom"
 import Login from './components/Login.js'
 import ViewJobs from './components/ViewJobs.js'
 import Description from './components/Description.js'
@@ -19,11 +19,13 @@ import PrinterWrapper from './components/Print.js'
 import ReactDOM from "react-dom";
 import Pdf from "react-to-pdf";
 import Tester from './components/Tester.js'
-
+import Signiture from './components/Signiture.js'
+import { jobData } from './components/Empty';
+// import { useHistory } from 'react-router-dom'
 
 
 function App() {
-  const [{user, jobName, job, docName, username}, dispatch] = useStateValue();
+  const [{user, jobName, job, docName, username, invoiceNumber, isNew}, dispatch] = useStateValue();
   // const [username, setUsername] = useState(job.username)
   const [totalLabor, setTotalLabor] = useState(job.totalLabor)
   const [totalMaterials, setTotalMaterials] = useState(job.totalMaterials)
@@ -33,11 +35,15 @@ function App() {
   const [jobObject, setJobObject] = useState(job)
 
   const [materialsList, setMaterialsList] = useState(job.materials)
-  const [otherChargesList, setOtherChargesList] = useState(job.OtherCharges)
+  const [otherChargesList, setOtherChargesList] = useState(job.otherCharges)
   const [laborList, setLaborList] = useState(job.labor)
   const [headerInfo, setHeaderInfo] = useState(job.headerInfo)
   const [description, setDescription] = useState(job.description)
   const [login, setLogin] = useState(<Login />) 
+  const [invoiceNum, setInvoiceNum] = useState(job.invoiceNum)
+  const history = useHistory();
+
+  let name = jobName; 
 
   const [footer, setFooter] = useState(
     <Footer 
@@ -77,12 +83,7 @@ function App() {
       else if(obj.category === 'labor'){
         console.log(obj.value)
         setTotalLabor(Number(obj.value))
-        dispatch({
-          type:'SAVE_OTHERS',
-          item: {
-
-          }
-        })
+       
       }
       else if(obj.category === 'other'){
         setTotalOther(Number(obj.value))
@@ -132,22 +133,48 @@ function App() {
     }
 
     const push = () => {
-      // dispatch({
+      //const title = prompt("Hello World")
+      let title;
+      let materialsTotal = 0;
+      let laborTotal = 0;
+      let othersTotal = 0;
 
-      // })
+      for(let i = 0; i < materialsList.length; i++){
+        materialsTotal += Number(materialsList[i].amount)
+        console.log(`MATERIALS: ${materialsTotal}`)
+        // setTotalMaterials(materialsTotal)
+      }
+      for(let i = 0; i < laborList.length; i++){
+        // console.log(laborList)
+        laborTotal += Number(laborList[i].amount)
+        console.log(`LABOR: ${laborTotal}`)
+        // setTotalLabor(laborTotal)
+      }
+      for(let i = 0; i < otherChargesList.length; i++){
+        othersTotal += Number(otherChargesList[i].price)
+        console.log(`OTHER: ${othersTotal}`)
+        // setTotalOther(othersTotal)
+      }
+
+      setTotalMaterials(materialsTotal)
+      setTotalLabor(laborTotal)
+      setTotalOther(othersTotal)
+
       setJobObject({
         headerInfo: headerInfo,
-        jobName: jobName,
+        jobName: name,
         labor: laborList,
         materials: materialsList,
         otherCharges: otherChargesList,
         tax: tax,
-        total: total,
-        totalLabor: totalLabor,
-        totalMaterials: totalMaterials,
-        totalOther: totalOther,
+        total: laborTotal + materialsTotal + othersTotal,
+        totalLabor: laborTotal,
+        totalMaterials: materialsTotal,
+        totalOther: othersTotal,
         username: username,
-        description: description
+        description: description,
+        invoiceNumber: invoiceNumber,
+        isNew: false
       })
       try{
         db.collection(username).doc(docName).set({
@@ -157,26 +184,96 @@ function App() {
           username: username
 
         })
-        console.log(jobObject)
+        //console.log(jobObject)
+      console.log(`Success? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
+      console.log(jobObject)
       }catch(err){
+        console.log(`Error? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
         // alert('error')
-        console.log(`ERROR: ${err}`)
-        console.log(user)
-        console.log(username)
+        // console.log(`ERROR: ${err}`)
+        // console.log(user)
+        // console.log(username)
       }
+      try{
+        if(job.isNew){
+          console.log("INVOICE++")
+          //alert(isNew)
+          db.collection('data').doc('1111').set({
+            invoiceNumberCount: invoiceNumber
+
+          })
+          dispatch({
+            type: 'INVOICE_INCREMENTED'
+          })
+
+        }else{
+          console.log("JOB NOT NEW")
+        }
+      }catch(err){
+        console.log("INVOICE UPPER ERROR: ", err)
+      }
+    }
+
+    const getInvoice = (bool) => {
+      let num;
+      bool  ?
+        db.collection('data')
+        .onSnapshot(snapshot => {
+           setInvoiceNum(snapshot.docs[0].data().invoiceNumberCount + 1)
+           //num = snapshot.docs[0].data().invoiceNumberCount + 1
+
+        })
+        
+      :
+        setInvoiceNum(job.invoiceNumber)
+
+      return num;
+      
+    }
+
+    const loadTotals = () => {
+      let materialsTotal = 0;
+      let laborTotal = 0;
+      let othersTotal = 0;
+
+      for(let i = 0; i < materialsList.length; i++){
+        materialsTotal += Number(materialsList[i].amount)
+        //console.log(`MATERIALS: ${materialsTotal}`)
+        // setTotalMaterials(materialsTotal)
+      }
+      for(let i = 0; i < laborList.length; i++){
+        // console.log(laborList)
+        laborTotal += Number(laborList[i].amount)
+        //console.log(`LABOR: ${laborTotal}`)
+        // setTotalLabor(laborTotal)
+      }
+      for(let i = 0; i < otherChargesList.length; i++){
+        othersTotal += Number(otherChargesList[i].price)
+        //console.log(`OTHER: ${othersTotal}`)
+        // setTotalOther(othersTotal)
+      }
+
+      // setTotalMaterials(materialsTotal)
+      // setTotalLabor(laborTotal)
+      // setTotalOther(othersTotal)
+
     }
 
     const Button = React.forwardRef((props, ref) => {
       return (
         <React.Fragment>
           <Pdf targetRef={ref} filename="code-example.pdf">
-            {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+            {({ toPdf }) => <button style={{width: '60px', marginLeft: '8px'}} onClick={toPdf}><img src="https://www.flaticon.com/svg/vstatic/svg/80/80942.svg?token=exp=1614392481~hmac=c1006145834c6bf0c42566aeb90f648a"/></button>}
           </Pdf>
         </React.Fragment>
       );
     });
 
   let docToPrint = React.createRef();
+
+  const goBack = e => {
+    history.push('/jobs')
+  }
 
   return (
     <Router>
@@ -201,13 +298,34 @@ function App() {
           <ToPdf />
         </Route> */}
 
-        <Route path="/">
-        <div>
-          <Button ref={docToPrint} />
+        <Route path="/jobdetails">
+          {
+            job.isNew ? getInvoice('true') : loadTotals()
+          }
+          {/* {calculateTotal()} */}
+        <div style={{display: 'flex', flexDirection: 'row', marginLeft: '115%', marginTop: '5px', marginBottom: '5px'}}>
+          <div style={{marginRight:'15px'}}>
+            <Button ref={docToPrint} />
+          </div>
+          <div>
+            <button
+              onClick={push}
+            >
+              <img  style={{width: '45px', height: '45px'}} src="https://cdn2.iconfinder.com/data/icons/web-application-icons-part-2/100/Artboard_73-512.png" />
+            </button>
+          </div>
         </div>
 
         <React.Fragment>  
 
+        <button 
+          className="App__backbn"
+          onClick = {
+           goBack
+          }
+        >
+            &#8592; Back
+        </button>
         <div className="App"
           ref={docToPrint}
         >
@@ -216,27 +334,47 @@ function App() {
               style={{
                 borderRadius: "1px",
                 width: "8000px",
-                height: "100%",
+                // height: "100%",
                 margin: "0 auto",
                 padding: "5mm"
+                
               }}
             >
-
-          <Tester />
+            {/* <div
+              style={{
+                borderLeft: '2px solid black',
+                marginLeft: '400px',
+                height: '100%',
+                position: 'absolute',
+                zIndex: '-1'
+              }}
+            > </div> */}
           
-
+          {console.log(invoiceNumber)}
           <Header 
             job = {job}
             save = {saveInvoice}
+            invoiceNum = {invoiceNum}
           />
           <br />
           <div className="app__mainBody">
-          
-            <Details 
-              calculate = {calculateTotal}
-              materials = {materialsList}
-              save = {saveInvoice}
-            />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <Details 
+                calculate = {calculateTotal}
+                materials = {materialsList}
+                save = {saveInvoice}
+              />
+
+              <Signiture 
+
+              />
+              </div>
+
             <div>
               
               
@@ -247,10 +385,12 @@ function App() {
                 <OtherCharges 
                   calculate = {calculateTotal}
                   save = {saveInvoice}
+                  charges={otherChargesList}
                 />
                 <Labor 
                   calculate = {calculateTotal}
                   save = {saveInvoice}
+                  charges={laborList}
                 />
               
               {/* {footer} */}
@@ -262,11 +402,11 @@ function App() {
                 total = {total}
                 calculate={calculateTotal}
               />
-              <button
+              {/* <button
                 onClick={push}
               >
                 Save Invoice
-              </button>
+              </button> */}
               
             </div>
             
@@ -275,6 +415,7 @@ function App() {
           </div>
           </div>
         </ React.Fragment >
+        
         </Route>
       
 
