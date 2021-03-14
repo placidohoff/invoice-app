@@ -1,18 +1,21 @@
 .othercharges__header{
-    width: 360px;
-        background-color: gray;
-        border-left: 1px solid black;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        text-align: center;
-        font-weight: bold;
+    width: 355px;
+    background-color: gray;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+    font-weight: bold;
 }
 
 .othercharges__totalLabel{
     text-align: right;
-    width: 285px;
+    width: 287px;
+    /* border-right: 0px solid black; */
 }
 
 .othercharges__total{
-    width: 55px;
+    width: 54px;
+    border-left: 0px solid black;
 }

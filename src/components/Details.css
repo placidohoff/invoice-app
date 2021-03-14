@@ -21,13 +21,13 @@
             width: 45px;
         }
         .details__material{
-            width: 238px
+            width: 236px
         }
         .details__price{
-            width: 62px;
+            width: 58px;
         }
         .details__amount{
-            width: 65px;
+            width: 66px;
         }
         .details__amount{
             border-right: 1px solid black;
@@ -45,9 +45,11 @@
 
         .details__dateCompleted{
             width: 160px;
+            border-right: 0px solid black;
         }
         .details__totalMaterialsBox{
-            width: 75px;
+            width: 74px;
+            border-left: 0px solid black;
         }
 
 }

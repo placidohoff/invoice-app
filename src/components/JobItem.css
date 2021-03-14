@@ -3,19 +3,27 @@
 @media only screen and (min-width: 640px){
     .jobitem{
         margin-left: -15px;
+        /* outline-width: thin;  */
     }
     .jobitem__qty{
         width: 40px;
         text-align: right;
+        border-right: 0px solid black;
     }
     .jobitem__material{
         width: 230px;
+        /* outline-width: thin; */
+        /* border-top: 1px solid black;
+        border-bottom: 1px solid black; */
+        /* border: 1px solid black; */
     }
     .jobitem__price{
         width: 55px;
+        border-left: 0px solid black;
     }
     .jobitem__amount{
-        width: 58px;
+        width: 59px;
+        border-left: 0px solid black;
     }
 }
 @media only screen and (max-width: 620px){

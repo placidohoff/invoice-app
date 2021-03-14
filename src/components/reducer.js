@@ -59,6 +59,7 @@ const reducer = (state, action) => {
             console.log(action.item.user)
             // state.user = action.item.user
             state.user = action.item.user
+            state.job.username = action.item.username[0]
             return{
                 ...state,
                 job: state.job,

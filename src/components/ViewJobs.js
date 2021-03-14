@@ -8,28 +8,34 @@ import JobItem from './JobItem'
 
 
 function ViewJobs(){
-    const [{user, isNew}, dispatch] = useStateValue();
+    const [{user, isNew, job}, dispatch] = useStateValue();
     const history = useHistory();
     const [jobsList, setJobsList] = useState([])
 
     const checkUser = () => {
-        if(user == '' || user == undefined){
+        if(job.username !== ''){
+            //alert(job.username)
+            return [job.username]
+        }
+        if(job.username == '' || job.username == undefined){
             history.push('/login')
         }
         else{
             return user.split('@')
         }
     }
-    const [username, setUsername] = useState(checkUser)
+    const [name, setName] = useState(checkUser)
     const [invoiceNumber, setInvoiceNumber] = useState(111111)
 
 
     useEffect(() => {
-        if(user == '' || user == undefined){
-            history.push('/login')
+        console.log(`YOOOOOOO: ${job.username}`)
+        if(job.username == '' || job.username == undefined){
+            // history.push('/login')
         }
         else{
-            db.collection(username[0])
+            
+            db.collection(job.username)
             //.orderBy("timestamp", "asc")
             .onSnapshot(snapshot => {
                 
@@ -81,12 +87,12 @@ function ViewJobs(){
                                     jobData: job.jobData,
                                     jobName: job.jobName,
                                     docName: job.docName,
-                                    username: username[0],
+                                    username: name[0],
                                     invoiceNumber: job.jobData.invoiceNumber
                                     
                                 }
                             })
-                            console.log(username[0])
+                            console.log(name[0])
                             history.push('/jobdetails')
                         }}    
                         style={{cursor:'default'}}
@@ -117,7 +123,7 @@ function ViewJobs(){
                         jobData: jobData,
                         jobName: jobData.jobName,
                         doc: doc,
-                        username: username[0],
+                        username: name[0],
                         invoiceNumber: invoiceNumber + 1
                     }
                 })

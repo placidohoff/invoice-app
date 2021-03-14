@@ -1,15 +1,16 @@
 .description__header{
-    width: 360px;
+    width: 355px;
         background-color: gray;
         border-left: 1px solid black;
         border-top: 1px solid black;
         border-bottom: 1px solid black;
+        border-right: 1px solid black;
         text-align: center;
         font-weight: bold;
 }
 
 .description__body{
     border: 1px solid black;
-    height: 120px;
-    width: 355px;
+    height: 140px;
+    width: 351px;
 }

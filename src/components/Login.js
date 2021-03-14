@@ -37,7 +37,8 @@ function Login(){
                 dispatch({
                     type: 'LOGIN',
                     item: {
-                        user: email
+                        user: email,
+                        username: email.split('@')
                     }
                 })
                 history.push('/jobs');

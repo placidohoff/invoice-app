@@ -12,29 +12,37 @@
         border-left: 1px solid black;
         border-top: 1px solid black;
         border-bottom: 1px solid black;
+        border-right: 1px solid black;
         text-align: center;
         font-weight: bold;
 }
 
 .labor__name{
-    width: 186px;
+    width: 185px;
+    /* border-right: 0px solid black; */
 }
 
 .labor__hrs{
-    width: 50px;
+    width: 47px;
+    /* border-right: 0px solid black;
+    border-left: 0px solid black; */
 }
 
 .labor__rate{
     width: 47px;
+    /* border-right: 0px solid black;
+    border-left: 0px solid black; */
 }
 
 .labor__amount{
-    width: 70px;
+    width: 67px;
     font-size: 15px;
+    /* border-left: 0px solid black; */
 }
 .labor__totalLabel{
     width: 279px;
     text-align: right;
+    border-right: 0px solid black;
 }
 
 .labor__total{

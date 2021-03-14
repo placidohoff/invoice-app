@@ -43,7 +43,13 @@
     }
     
     .header__invoiceOrderDateBox{
-        width: 150px;
+        /* width: 150px; */
+        width: 165px;
+        /* margin-left: */
+    }
+
+    .header__orderNumber{
+        width: 260px;
     }
 
     .header__invoiceOrderTakenBy{
@@ -54,7 +60,24 @@
         width: 150px;
     }
     .header__invoiceJobName{
-        width: 98%;
+        /* width: 98%; */
+        width: 345px;
+    }
+    .header__orderNumber{
+        /* height: 10px; */
+        width: 165px;
+    }
+
+    .header__address{
+        width: 345px;
+    }
+
+    .header__cityState{
+        width: 345px;
+    }
+
+    .header__startDate{
+        width: 168px;
     }
 }
 @media only screen and (max-width: 620px){

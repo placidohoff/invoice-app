@@ -138,6 +138,8 @@ function Header(props){
                     // onChange={doThis}
                     onBlur={e => {setPhoneLabel(`Phone: ${phone}`); save()}}
                     onClick={e => {setPhoneLabel(phone)}}
+                    className="header__phoneBox"
+
          
                 />
                 <input 
@@ -147,6 +149,7 @@ function Header(props){
                     onClick = {e => {setOrderDateLabel(orderDate)}}
                     onChange = {e => {setOrderDate(e.target.value); setOrderDateLabel(e.target.value)}}
                     onBlur = {e => {setOrderDateLabel(`Order Date: ${orderDate}`)}}
+                    className="header__invoiceOrderDateBox"
                 />
                 <br />
                 <input 
@@ -156,6 +159,7 @@ function Header(props){
                     onClick = {e => {setOrderTakenByLabel(orderTakenBy)}}
                     onChange = {e => {setOrderTakenByLabel(e.target.value); setOrderTakenBy(e.target.value)}}
                     onBlur = {e => {setOrderTakenByLabel(`Order Taken By: ${orderTakenBy}`)}}
+                    className="header__orderTakenByBox"
                 />
                 <input 
                     type="text" 
@@ -164,6 +168,7 @@ function Header(props){
                     onClick = {e => {setOrderNumberLabel(orderNumber)}}
                     onChange = {e => {setOrderNumberLabel(e.target.value); setOrderNumber(e.target.value)}}
                     onBlur = {e => {setOrderNumberLabel(`Order Number: ${orderNumber}`)}}
+                    className="header__orderNumber"
                 />
                 <br />
                 <div
@@ -212,17 +217,18 @@ function Header(props){
                     type="text" 
                     placeholder="Address"  
                     width="300"
-                    className="header__invoiceJobName"
+                    className="header__address"
                     value = {addressLabel}
                     onClick = {e => {setAddressLabel(address)}}
                     onChange = {e => {setAddressLabel(e.target.value); setAddress(e.target.value)}}
                     onBlur = {e => {setAddressLabel(`Address: ${address}`)}}
                 />
+                <br />
                 <input 
                     type="text" 
                     placeholder="City,State,ZIP"  
                     width="300"
-                    className="header__invoiceJobName"
+                    className="header__cityState"
                     value = {cityStateLabel}
                     onClick = {e => {setCityStateLabel(cityState)}}
                     onChange = {e => {setCityStateLabel(e.target.value); setCityState(e.target.value)}}
@@ -236,7 +242,8 @@ function Header(props){
                     onClick = {e => {setJobPhoneLabel(jobPhone)}}
                     onChange = {e => {setJobPhoneLabel(e.target.value); setPhone(e.target.value)}}
                     onBlur = {e => {setJobPhoneLabel(`Phone: ${jobPhone}`)}}                  
- 
+                    // className="header__invoiceOrderDateBox"
+
                 />
                 <input 
                     type="text" 
@@ -245,6 +252,7 @@ function Header(props){
                     onClick = {e => {setStartingDateLabel(startingDate)}}
                     onChange = {e => {setStartingDateLabel(e.target.value); setStartingDate(e.target.value)}}
                     onBlur = {e => {setStartingDateLabel(`Starting Date: ${startingDate}`)}}
+                    className="header__startDate"
                 />
 
                 

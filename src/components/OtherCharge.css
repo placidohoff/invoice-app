@@ -2,13 +2,14 @@
     margin-bottom: -2px;
 }
 .othercharge__description{
-    width: 285px;
+    width: 288px;
+    border-right: 0px solid black;
     /* height: 40px; */
 }
 
 .othercharge__price{
     position: absolute;
-    width: 60px;
+    width: 55px;
     height: 30px;
     /* margin-top: px; */
 }
