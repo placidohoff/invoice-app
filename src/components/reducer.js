@@ -46,7 +46,8 @@ export const initialState = {
         totalMaterials: 0,
         totalOther: 0,
         tax: 0,
-        total: 0
+        total: 0,
+        signatureImage: null
         
         
     }
@@ -74,13 +75,15 @@ const reducer = (state, action) => {
             state.docName = action.item.docName
             state.username = action.item.username
             state.invoiceNumber = action.item.invoiceNumber
+            state.signatureImage = action.item.signatureImage
             return{
                 // ...state,
                 job: action.item.jobData,
                 jobName: action.item.jobName,
                 docName: action.item.docName,
                 username: action.item.username,
-                invoiceNumber: action.item.invoiceNumber
+                invoiceNumber: action.item.invoiceNumber,
+                signatureImage: action.item.signatureImage
             }
         case 'NEW_JOB':
             console.log('New Job')
@@ -97,6 +100,12 @@ const reducer = (state, action) => {
                 username: action.item.username,
                 invoiceNumber: action.item.invoiceNumber
                 //isNew: action.item.isNew
+            }
+        case 'NEW_SIGNATURE':
+            state.signatureImage = action.item.signatureImage
+            console.log("REDUCERRR...",state.signatureImage)
+            return{
+                ...state
             }
         case 'TRACK_INVOICE_NUM':
 

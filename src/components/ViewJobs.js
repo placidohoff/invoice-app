@@ -5,12 +5,16 @@ import { useHistory } from 'react-router-dom'
 import { db } from '../firebase.js'
 import { jobData } from './Empty.js'
 import JobItem from './JobItem'
+import ListJob from './ListJob.js'
+import { List } from '@material-ui/core'
+import ConfirmBox from './ConfirmBox.js'
 
 
 function ViewJobs(){
     const [{user, isNew, job}, dispatch] = useStateValue();
     const history = useHistory();
     const [jobsList, setJobsList] = useState([])
+    const [num, setNum] = useState(5)
 
     const checkUser = () => {
         if(job.username !== ''){
@@ -73,38 +77,53 @@ function ViewJobs(){
            <br />
            {
                jobsList.length > 0 ?
-               jobsList.map(job => {
+               jobsList.map((job, index) => {
                 if(job){
                     return(
-                    <div className="viewjobs__container">
-                    <span 
-                        key={Math.random()}
-                        className="viewjobs__name"
-                        onClick={e => {
-                            dispatch({
-                                type: 'LOAD_JOB',
-                                item: {
-                                    jobData: job.jobData,
-                                    jobName: job.jobName,
-                                    docName: job.docName,
-                                    username: name[0],
-                                    invoiceNumber: job.jobData.invoiceNumber
+                        
+                        <ListJob 
+                            class={'listjob__'}
+                            key={index}
+                            code={(String(index))}
+                            docName={job.docName}
+                            data={job.jobData}
+                            invoiceNum={job.jobData.invoiceNumber}
+                            popup={<ConfirmBox />}
+                            jobName={job.jobData.jobName}
+                            signatureImage={job.jobData.signatureImage}
+                        />
+    
+                        
+                    // <div className="viewjobs__container">
+                    // <span 
+                    //     key={Math.random()}
+                    //     className="viewjobs__name"
+                    //     onClick={e => {
+                    //         dispatch({
+                    //             type: 'LOAD_JOB',
+                    //             item: {
+                    //                 jobData: job.jobData,
+                    //                 jobName: job.jobName,
+                    //                 docName: job.docName,
+                    //                 username: name[0],
+                    //                 invoiceNumber: job.jobData.invoiceNumber
                                     
-                                }
-                            })
-                            console.log(name[0])
-                            history.push('/jobdetails')
-                        }}    
-                        style={{cursor:'default'}}
-                    >
-                        {job.docName}
-                    </span>
-                    <br />
-                    <span>{job.jobData.headerInfo.address}</span>
-                    {/* <div className="viewjobs__del">X</div> */}
-                    <br />
-                    <span>Total: $<span>{job.jobData.total}</span></span><span>Materials: $<span>{job.jobData.totalMaterials}</span></span><span>Labor: $<span>{job.jobData.totalLabor}</span></span><span>Other: $<span>{job.jobData.totalOther}</span></span>
-                    </div>
+                    //             }
+                    //         })
+                    //         console.log(name[0])
+                    //         history.push('/jobdetails')
+                    //     }}    
+                    //     style={{cursor:'default'}}
+                    // >
+                    //     {job.docName}
+                    // </span>
+                    // <br />
+                    // <span>{job.jobData.headerInfo.address}</span>
+                    // {/* <div className="viewjobs__del">X</div> */}
+                    // <br />
+                    // <span>Total: $<span>{job.jobData.total}</span></span><span>Materials: $<span>{job.jobData.totalMaterials}</span></span><span>Labor: $<span>{job.jobData.totalLabor}</span></span><span>Other: $<span>{job.jobData.totalOther}</span></span>
+                    // </div>
+                    
                     )
                 }
             })

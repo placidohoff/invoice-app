@@ -1,3 +1,10 @@
+input{
+    border: 1px solid black;
+}
+
+.othercharges{
+    margin-bottom: 4px;
+}
 .othercharges__header{
     width: 355px;
     background-color: gray;

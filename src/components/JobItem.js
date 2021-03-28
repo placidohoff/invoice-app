@@ -96,7 +96,7 @@ function JobItem(props){
                 // })}
                 // onChange={props.save()}
             />
-            
+            {/* <br /> */}
         </div>
     )
 }

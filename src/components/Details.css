@@ -1,5 +1,7 @@
 
-
+input{
+    border: 1px solid black;
+}
 @media only screen and (min-width: 640px){
     .details__headers{
         display: flex;
@@ -21,10 +23,10 @@
             width: 45px;
         }
         .details__material{
-            width: 236px
+            width: 237px
         }
         .details__price{
-            width: 58px;
+            width: 59px;
         }
         .details__amount{
             width: 66px;
@@ -35,20 +37,25 @@
         .details__bottom{
             display: flex;
             flex-direction: row;
-            margin-left: -15px;;
+            margin-left: -15px;
+            margin-top: 5px;
         }
         .details__totalMaterialsLabel{
             border: 1px solid black;
             width: 162px;
             text-align: center;
+            /* height: 18px; */
+            font-size: small;
         }
 
         .details__dateCompleted{
             width: 160px;
             border-right: 0px solid black;
+            height: 15px;
         }
         .details__totalMaterialsBox{
-            width: 74px;
+            height: 15px;
+            width: 78px;
             border-left: 0px solid black;
         }
 

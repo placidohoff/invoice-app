@@ -17,7 +17,7 @@ function getItems(type){
             name: '',
             rate: 0
         }
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 9; i++){
             items.push(obj)
         }
     }
@@ -37,7 +37,7 @@ function getItems(type){
             description: '',
             price: 0
         }
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 6; i++){
             items.push(obj)
         }
     }
@@ -69,7 +69,8 @@ export const jobData = {
     totalLabor: 0,
     totalMaterials: 0,
     totalOther: 0,
-    username: ''
+    username: '',
+    signatureImage: null
 }
 
 // export jobData

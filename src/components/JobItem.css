@@ -6,12 +6,12 @@
         /* outline-width: thin;  */
     }
     .jobitem__qty{
-        width: 40px;
+        width: 41px;
         text-align: right;
         border-right: 0px solid black;
     }
     .jobitem__material{
-        width: 230px;
+        width: 233px;
         /* outline-width: thin; */
         /* border-top: 1px solid black;
         border-bottom: 1px solid black; */
@@ -20,10 +20,12 @@
     .jobitem__price{
         width: 55px;
         border-left: 0px solid black;
+        
     }
     .jobitem__amount{
-        width: 59px;
+        width: 62px;
         border-left: 0px solid black;
+        /* border-right: none; */
     }
 }
 @media only screen and (max-width: 620px){

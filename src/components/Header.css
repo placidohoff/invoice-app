@@ -1,4 +1,7 @@
 
+input{
+    border: 1px solid black;
+}
 
 @media only screen and (min-width: 640px){
     .header{
@@ -9,7 +12,7 @@
     }
     
     .header__title{
-        /* margin-left: 20px; */
+        margin-left: -5px;
     }
     
     .header__title > h1 {
@@ -29,7 +32,7 @@
     .header__invoice{
         /* position: absolute;
         right: 60px; */
-        margin-left: 100px;
+        margin-left: 80px;
     }
     
     .header__invoiceNumber{
@@ -44,12 +47,14 @@
     
     .header__invoiceOrderDateBox{
         /* width: 150px; */
-        width: 165px;
+        width: 170px;
+        border-left: none;
         /* margin-left: */
     }
 
     .header__orderNumber{
-        width: 260px;
+        /* width: 260px; */
+        border-left: none;
     }
 
     .header__invoiceOrderTakenBy{
@@ -77,7 +82,8 @@
     }
 
     .header__startDate{
-        width: 168px;
+        width: 171px;
+        border-left: none;
     }
 }
 @media only screen and (max-width: 620px){

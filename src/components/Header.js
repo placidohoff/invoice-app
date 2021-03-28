@@ -78,16 +78,23 @@ function Header(props){
 
     }
 
-    const blank = '                                                                '
-    const blankk = '                                                                     '
+    const blank = '                                                                  '
+    const blankk = '                                                                       '
 
     const lineStyle = {
         // textDecoration: 'underline', 
         whiteSpace: 'pre', 
         // width: '200px'
         borderBottom: '1px solid black',
-        minWidth: '200px'
+        minWidth: '200px',
+        // height: '40px',
+        marginBottom: '3px'
     }
+
+    const spacer = () => {
+        return '          '
+    }
+    // const [smallSpace, setSmallSpace] = useState(&nbsp;)
 
     useEffect(() => {
         props.save({type: 'header', headerInfo:{phone:phone, orderDate:orderDate, orderTakenBy: orderTakenBy, orderNumber:orderNumber, type: type, name: name, address: address, cityState: cityState, phone: phone, startingDate: startingDate}})
@@ -107,12 +114,12 @@ function Header(props){
                 <h4>Electrical Contractor</h4>
                 <p>Tel: (855)644-1748 * (888)55-CALLRCI</p>
                 <p>E-mail: us@Quotemyelectrical@gmail.com</p>
-                <span>To:</span><span style={lineStyle}>{blank}</span><br />
+                <div style={{display:'flex', flexDirection:'row', whiteSpace: 'pre'}}><span>To:</span><div style={lineStyle}>{blank}</div></div><br />
+                <div style={{display:'flex', flexDirection:'row', whiteSpace: 'pre'}}><span>{'    '}</span><div style={lineStyle}>{blankk}</div></div><br />
+                <div style={{display:'flex', flexDirection:'row', whiteSpace: 'pre'}}><span>{'    '}</span><div style={lineStyle}>{blankk}</div></div><br />
+                {/* <span style={lineStyle}>{blankk}</span><br />
                 <span style={lineStyle}>{blankk}</span><br />
-                <span style={lineStyle}>{blankk}</span><br />
-                <span style={lineStyle}>{blankk}</span><br />
-                <span style={lineStyle}>{blankk}</span><br />
-                <span style={lineStyle}>{blankk}</span><br />
+                <span style={lineStyle}>{blankk}</span><br /> */}
 
 
                 {/* <span>To: _________________________________</span><br />
@@ -169,6 +176,7 @@ function Header(props){
                     onChange = {e => {setOrderNumberLabel(e.target.value); setOrderNumber(e.target.value)}}
                     onBlur = {e => {setOrderNumberLabel(`Order Number: ${orderNumber}`)}}
                     className="header__orderNumber"
+                    style={{width: '170px'}}
                 />
                 <br />
                 <div

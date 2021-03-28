@@ -33,6 +33,7 @@ function LaborCharge(props){
                 onChange={e => {setName(e.target.value)}}
                 
             />
+            {/* <br /> */}
             <input
                 type="number"
                 className="laborcharge__hours"

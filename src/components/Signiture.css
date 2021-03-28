@@ -1,0 +1,33 @@
+.signitureCanvas{
+    border: 1px solid black;
+    /* width: 100%; */
+    width: 400px;
+    height: 60px;
+    margin-top: 200px;
+    margin-right: 500px;
+    /* position: absolute;
+    left: 20px; */
+
+    /* margin-left: -300px; */
+  }
+
+  .signitureTriggerPre{
+      /* border: 1px solid black; */
+      height: 50px;
+      /* cursor: url('https://www.flaticon.com/svg/vstatic/svg/565/565722.svg?token=exp=1616558491~hmac=de1de335305280008b6fa030029e88b8'), default; */
+      /* cursor: url('public\edit.png'), auto; */
+      cursor: crosshair;
+      width: 345px;
+      position: absolute;
+      /* margin-top: -50px; */
+  }
+  .signitureTriggerPost{
+      /* border: 1px solid black; */
+      height: 50px;
+      /* cursor: url('https://www.flaticon.com/svg/vstatic/svg/565/565722.svg?token=exp=1616558491~hmac=de1de335305280008b6fa030029e88b8'), default; */
+      /* cursor: url('public\edit.png'), auto; */
+      cursor: crosshair;
+      width: 345px;
+      position: absolute;
+      margin-top: -50px;
+  }

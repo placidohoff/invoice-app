@@ -14,6 +14,7 @@ import Footer from './Footer.js'
 import Header from './Header.js'
 import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from "react-router-dom"
 import Pdf from 'react-to-pdf'
+import gsap from 'gsap'
 
 
 function Main(){
@@ -32,10 +33,12 @@ function Main(){
   const [headerInfo, setHeaderInfo] = useState(job.headerInfo)
   const [description, setDescription] = useState(job.description)
 //   const [login, setLogin] = useState(<Login />) 
-  const [invoiceNum, setInvoiceNum] = useState(job.invoiceNum)
+  const [invoiceNum, setInvoiceNum] = useState(job.invoiceNumber)
   const history = useHistory();
+  const [signatureImage, setSignatureImage] = useState(job.signatureImage)
 
   let name = jobName; 
+  let sig = signatureImage;
 
   const [footer, setFooter] = useState(
     <Footer 
@@ -61,11 +64,13 @@ function Main(){
         totalMaterials: totalMaterials,
         totalOther: totalOther,
         username: username,
-        description: description
+        description: description,
+        signatureImage: sig,
+        invoiceNumber: invoiceNum
       })
       console.log(jobObject)
 
-    }, [materialsList, otherChargesList, laborList, headerInfo, description])
+    }, [materialsList, otherChargesList, laborList, headerInfo, description, signatureImage])
 
     const calculateTotal = (obj) => {
       console.log(obj)
@@ -123,6 +128,38 @@ function Main(){
 
       
     }
+  
+    const animate = (flag) => {
+      if(flag == true){
+        gsap.to('.saveSuccess', {
+          display: 'inline',
+          y: 10,
+          duration: 1,
+          yoyoEase:true,
+          repeat:0,
+          onComplete: animateOut
+        })
+      }
+      else{
+        gsap.to('.saveFail', {
+          display: 'inline',
+          y: 10,
+          duration: 1,
+          yoyoEase:true,
+          repeat:0,
+          onComplete: animateOut
+        })
+      }
+    }
+
+    const animateOut = () => {
+      gsap.to('.saveSuccess', {
+        display: 'none'
+      })
+      gsap.to('.saveFail', {
+        display: 'none'
+      })
+    }
 
     const push = () => {
       //const title = prompt("Hello World")
@@ -152,9 +189,11 @@ function Main(){
       setTotalLabor(laborTotal)
       setTotalOther(othersTotal)
 
+      console.log("YOOOOOOOO.... ", invoiceNumber)
+
       setJobObject({
         headerInfo: headerInfo,
-        jobName: name,
+        jobName: job.jobName,
         labor: laborList,
         materials: materialsList,
         otherCharges: otherChargesList,
@@ -165,26 +204,29 @@ function Main(){
         totalOther: othersTotal,
         username: username,
         description: description,
-        invoiceNumber: invoiceNumber,
-        isNew: false
+        invoiceNumber: invoiceNum,
+        isNew: false,
+        signatureImage: sig
       })
       try{
         db.collection(username).doc(docName).set({
           docName: docName,
           jobData: jobObject,
-          jobName: jobName,
+          jobName: job.jobName,
           username: username
 
         })
         //console.log(jobObject)
       console.log(`Success? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
       console.log(jobObject)
+      {animate(true)}
       }catch(err){
-        console.log(`Error? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
-        // alert('error')
-        // console.log(`ERROR: ${err}`)
-        // console.log(user)
-        // console.log(username)
+        // console.log(`Error? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
+
+        console.log(`ERROR: ${err}`)
+        console.log(jobObject)
+
+        {animate(false)}
       }
       try{
         if(job.isNew){
@@ -229,33 +271,29 @@ function Main(){
       let othersTotal = 0;
 
       for(let i = 0; i < materialsList.length; i++){
+        
         materialsTotal += Number(materialsList[i].amount)
-        //console.log(`MATERIALS: ${materialsTotal}`)
-        // setTotalMaterials(materialsTotal)
+        
       }
       for(let i = 0; i < laborList.length; i++){
-        // console.log(laborList)
+
         laborTotal += Number(laborList[i].amount)
-        //console.log(`LABOR: ${laborTotal}`)
-        // setTotalLabor(laborTotal)
+
       }
       for(let i = 0; i < otherChargesList.length; i++){
+        
         othersTotal += Number(otherChargesList[i].price)
-        //console.log(`OTHER: ${othersTotal}`)
-        // setTotalOther(othersTotal)
+      
       }
 
-      // setTotalMaterials(materialsTotal)
-      // setTotalLabor(laborTotal)
-      // setTotalOther(othersTotal)
 
     }
 
     const Button = React.forwardRef((props, ref) => {
       return (
         <React.Fragment>
-          <Pdf targetRef={ref} filename="code-example.pdf">
-            {({ toPdf }) => <button style={{width: '60px', marginLeft: '8px'}} onClick={toPdf}><img src="https://www.flaticon.com/svg/vstatic/svg/80/80942.svg?token=exp=1614392481~hmac=c1006145834c6bf0c42566aeb90f648a"/></button>}
+          <Pdf targetRef={ref} filename={`${docName}.pdf`}>
+            {({ toPdf }) => <button style={{width: '60px', marginLeft: '8px'}} onClick={toPdf}><img style={{width: '100%', height: '100%'}} src="https://www.deborahbeers.com/wp-content/uploads/2014/09/pdf-512.png"/></button>}
           </Pdf>
         </React.Fragment>
       );
@@ -268,6 +306,39 @@ function Main(){
     // console.log(username)
   }
 
+  const confirmDelete = () => {
+    let answer = window.confirm("Are you sure you want to permanetly delete this record?");
+    if (answer) {
+        try{
+            db.collection(username).doc(docName).delete()
+                console.log("Document successfully deleted!");
+            }catch {
+                console.log("Error removing document: ");
+        }
+
+        history.push('/jobs')
+    }
+    else {
+        //Do Nothing
+    }
+    
+  }
+
+  const saveSignature = (imageURL) => {
+    
+    setSignatureImage(imageURL)
+    sig = imageURL;
+    console.log("GIVE ME A SIGN...", imageURL)
+
+    // dispatch({
+    //   type: 'NEW_SIGNATURE',
+    //   item: {
+    //       signatureImage: imageURL
+    //   }
+    // })
+    console.log("yooooooooo")
+  }
+
 
 
     return(
@@ -277,21 +348,8 @@ function Main(){
             job.isNew ? getInvoice('true') : loadTotals()
           }
           {/* {calculateTotal()} */}
-          <button>Hello</button>
+
         <div style={{display: 'flex', flexDirection: 'row', marginLeft: '526px'}}>
-          <div>
-            {/* <button
-             style={{
-                //  left: '10px'
-                width: '100px',
-                height: '50px',
-                position: 'absolute'
-             }}
-             onClick={goBack}
-            >
-                GO BACK
-            </button> */}
-          </div>
           <div
             style={{
                 display: 'flex',
@@ -301,11 +359,49 @@ function Main(){
           <div style={{marginRight:'15px'}}>
             <Button ref={docToPrint} />
           </div>
-          <div>
+          <div style={{marginRight:'55px'}}> 
             <button
               onClick={push}
             >
               <img  style={{width: '45px', height: '45px'}} src="https://cdn2.iconfinder.com/data/icons/web-application-icons-part-2/100/Artboard_73-512.png" />
+              
+            </button>
+            <div 
+              className="saveSuccess"
+              style={{
+                display: 'none',
+                border: '1px solid yellow',
+                backgroundColor: 'yellow',
+                color: 'black',
+                fontSize: '12px',
+                fontWeight: 'bold',
+                position: 'absolute',
+                padding: '2px'
+              }}  
+            >
+              Save Sucessful
+            </div>
+            <div 
+              className="saveFail"
+              style={{
+                display: 'none',
+                border: '1px solid red',
+                backgroundColor: 'red',
+                color: 'black',
+                fontSize: '12px',
+                fontWeight: 'bold',
+                position: 'absolute',
+                padding: '2px'
+              }}  
+            >
+              Save Failed
+            </div>
+          </div>
+          <div>
+          <button
+              onClick={confirmDelete}
+          >
+              <img  style={{width: '45px', height: '45px'}} src="https://p7.hiclipart.com/preview/514/893/278/computer-icons-multiplication-delete-button.jpg" />
             </button>
           </div>
           </div>
@@ -366,7 +462,8 @@ function Main(){
               />
 
               <Signiture 
-
+                signatureImage={signatureImage}
+                saveSignature={saveSignature}
               />
               </div>
 
