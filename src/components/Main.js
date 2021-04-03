@@ -15,7 +15,8 @@ import Header from './Header.js'
 import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from "react-router-dom"
 import Pdf from 'react-to-pdf'
 import gsap from 'gsap'
-
+import Details_Mobile from './Details_Mobile.js'
+import Signature_Mobile from './Signature_Mobile.js'
 
 function Main(){
     const [{user, jobName, job, docName, username, invoiceNumber, isNew}, dispatch] = useStateValue();
@@ -349,75 +350,69 @@ function Main(){
           }
           {/* {calculateTotal()} */}
 
-        <div style={{display: 'flex', flexDirection: 'row', marginLeft: '526px'}}>
-          <div
-            style={{
-                display: 'flex',
-                flexDirection: 'row', marginLeft: '84%', marginTop: '5px', marginBottom: '5px'
-            }}
-          >
-          <div style={{marginRight:'15px'}}>
-            <Button ref={docToPrint} />
-          </div>
-          <div style={{marginRight:'55px'}}> 
-            <button
-              onClick={push}
-            >
-              <img  style={{width: '45px', height: '45px'}} src="https://cdn2.iconfinder.com/data/icons/web-application-icons-part-2/100/Artboard_73-512.png" />
-              
-            </button>
-            <div 
-              className="saveSuccess"
+          {/*SECTION: PRINT,SAVE,DELETE BUTTONS*/}
+          <div className="main__topButtons">
+            <div
+              className="main__topButtons_inner"
               style={{
-                display: 'none',
-                border: '1px solid yellow',
-                backgroundColor: 'yellow',
-                color: 'black',
-                fontSize: '12px',
-                fontWeight: 'bold',
-                position: 'absolute',
-                padding: '2px'
-              }}  
+                  
+              }}
             >
-              Save Sucessful
+              <div style={{marginRight:'15px'}}>
+                <Button ref={docToPrint} />
+              </div>
+              <div style={{marginRight:'55px'}}> 
+                <button
+                  onClick={push}
+                >
+                  <img  style={{width: '45px', height: '45px'}} src="https://cdn2.iconfinder.com/data/icons/web-application-icons-part-2/100/Artboard_73-512.png" />
+                  
+                </button>
+                <div 
+                  className="saveSuccess"
+                  style={{
+                    display: 'none',
+                    border: '1px solid yellow',
+                    backgroundColor: 'yellow',
+                    color: 'black',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    position: 'absolute',
+                    padding: '2px'
+                  }}  
+                >
+                  Save Sucessful
+                </div>
+                <div 
+                  className="saveFail"
+                  style={{
+                    display: 'none',
+                    border: '1px solid red',
+                    backgroundColor: 'red',
+                    color: 'black',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    position: 'absolute',
+                    padding: '2px'
+                  }}  
+                >
+                  Save Failed
+                </div>
+              </div>
+              <div>
+              <button
+                  onClick={confirmDelete}
+              >
+                  <img  style={{width: '45px', height: '45px'}} src="https://p7.hiclipart.com/preview/514/893/278/computer-icons-multiplication-delete-button.jpg" />
+                </button>
+              </div>
             </div>
-            <div 
-              className="saveFail"
-              style={{
-                display: 'none',
-                border: '1px solid red',
-                backgroundColor: 'red',
-                color: 'black',
-                fontSize: '12px',
-                fontWeight: 'bold',
-                position: 'absolute',
-                padding: '2px'
-              }}  
-            >
-              Save Failed
-            </div>
           </div>
-          <div>
-          <button
-              onClick={confirmDelete}
-          >
-              <img  style={{width: '45px', height: '45px'}} src="https://p7.hiclipart.com/preview/514/893/278/computer-icons-multiplication-delete-button.jpg" />
-            </button>
-          </div>
-          </div>
-        </div>
 
-         
+          
 
-        {/* <button 
-          className="App__backbn"
-          onClick = {
-           goBack
-          }
-        >
-            &#8592; Back
-        </button> */}
-        <div className="App"
+          {/*SECTION: MAIN CONTAINER FOR DESKTOP */}
+          <div className="App"
           ref={docToPrint}
         >
             <div
@@ -431,21 +426,14 @@ function Main(){
                 
               }}
             >
-            {/* <div
-              style={{
-                borderLeft: '2px solid black',
-                marginLeft: '400px',
-                height: '100%',
-                position: 'absolute',
-                zIndex: '-1'
-              }}
-            > </div> */}
+            
           
           {console.log(invoiceNumber)}
           <Header 
             job = {job}
             save = {saveInvoice}
             invoiceNum = {invoiceNum}
+            docName={docName}
           />
           <br />
           <div className="app__mainBody">
@@ -494,6 +482,7 @@ function Main(){
                 total = {total}
                 calculate={calculateTotal}
               />
+              
               {/* <button
                 onClick={push}
               >
@@ -506,8 +495,32 @@ function Main(){
           {/* <Footer /> */}
           </div>
           </div>
+          
+          {/*SECTION: MAIN CONTAINER FOR MOBILE */}
+          <div className="main__mobileContain">
+          <Header 
+            job = {job}
+            save = {saveInvoice}
+            invoiceNum = {invoiceNum}
+            docName={docName}
+          />
+          
+          <Details_Mobile 
+            materials={materialsList}
+            totalMaterials={totalMaterials}
+            labor={laborList}
+            totalLabor={totalLabor}            
+            otherCharges={otherChargesList}
+            totalOther={totalOther}
+          />
+          
+           <Signature_Mobile
+              signatureImage={signatureImage}
+              saveSignature={saveSignature}
 
-      
+          /> 
+            
+          </div>
 
         </div>
     )

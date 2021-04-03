@@ -4,6 +4,7 @@ export const initialState = {
     //isNew: false,
     job:{
         // invoiceNumber: 123456,
+        docName: '',
         isNew: false,
         username: '',
         jobName: '',

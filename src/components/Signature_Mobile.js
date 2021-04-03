@@ -1,59 +1,80 @@
 import React, {useState, useRef} from 'react'
+import './SignatureMobile.css'
 import Popup from 'reactjs-popup'
 import SigniturePad from 'react-signature-canvas'
 import './Signiture.css'
 import { useStateValue } from './StateProvider.js'
 
-function Signiture(props){
-    const [{user, jobName,invoiceNumber}, dispatch] = useStateValue();
-    const signiture = {
+
+
+function Signature_Mobile(props){
+
+const [{user, jobName,invoiceNumber}, dispatch] = useStateValue();
+const spaceOrder = '                                         '
+const spaceSig = '                                                                         '
+const signiture = {
         marginTop: '100px'
     }
 
-    const spaceOrder = '                                                         '
-    const spaceSig = '                                                                         '
-    const [imageURL, setImageURL] = useState(props.signatureImage)
-    const sigCanvas = useRef([])
-    const [sigClass, setSigClass] = useState("signitureTriggerPre")
+const [imageURL, setImageURL] = useState(props.signatureImage)
+const sigCanvas = useRef([])
 
-    const saveSig = () => {
-        setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
-        setSigClass("signitureTriggerPost")
-        props.saveSignature(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
-        console.log(sigCanvas)
-        document.getElementById("closeSigBn").click();
-        // sigCanvas.close();
-        dispatch({
-            type: 'NEW_SIGNATURE',
-            item: {
-                signatureImage: sigCanvas.current.getTrimmedCanvas().toDataURL("image/png")
-            }
-        })
-    }
+const [sigClass, setSigClass] = useState("sigMobileTriggerPre")
 
-    const clearSig = () => {
-        sigCanvas.current.clear()
-    }
+const saveSig = () => {
+    // sigCanvas.backgroundColor
+    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
+    setSigClass("signitureTriggerPost")
+    props.saveSignature(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
+    console.log(sigCanvas)
+    document.getElementById("closeSigBn").click();
+    // sigCanvas.close();
+    dispatch({
+        type: 'NEW_SIGNATURE',
+        item: {
+            signatureImage: sigCanvas.current.getTrimmedCanvas().toDataURL("image/png")
+        }
+    })
+}
+
+const clearSig = () => {
+    sigCanvas.current.clear()
+}
+
+const padStyle = {
+    width: '220px',
+    height: '50px',
+    border: '1px solid black',
+    marginTop: '-80px',
+    cursor: "crosshair",
+    zIndex: '10',
+    backgroundColor: 'red',
+    position: 'absolute' 
+
+}
 
     return(
-        <div
-        className="signature"
+        <div className="signatureMobile"
+        
+    
         style={signiture}>
             <span
                 style={{
                     fontSize: '12px',
                     fontWeight: 'bold',
-                    marginLeft: '20px'
+                    marginLeft: '-20px'
+                    // cursor: "crosshair"
                 }}
             >
-                Work ordered by
+                Work ordered by:
             </span>
             <span style={{
                 // textDecoration: 'underline', 
                 whiteSpace: 'pre', 
                 // width: '200px'
                 borderBottom: '1px solid black',
-                minWidth: '200px'
+                minWidth: '250px'
+                // marginLeft: '-20px'
 
                 }}
             >
@@ -75,11 +96,11 @@ function Signiture(props){
                     style={{
                         fontSize: '13px',
                         fontWeight: 'bold',
-                        marginLeft: '-10px'
+                        marginLeft: '-20px'
                         // marginTop: '25px'
                     }}
                 >
-                    Signiture
+                    Signiture:
                 </span>
                 <div
                     style={{
@@ -89,8 +110,10 @@ function Signiture(props){
                         borderBottom: '1px solid black',
                         minWidth: '180px',
                         // border: '1px solid black',
-                        height: '55px',
-                        marginTop: '-35px'
+                        // height: '55px',
+                        marginTop: '-35px',
+                        // cursor: "crosshair"
+                        
     
                     }}
                 >
@@ -103,7 +126,10 @@ function Signiture(props){
                             display: 'block',
                             margin: '0 auto',
                             // border: '1px solid black',
-                            width: '100%'
+                            width: '90%',
+                            zIndex: '-10',
+                            backgroundColor:'white'
+                            // color: 'red'
                           }}
                         />
                       ) : 
@@ -115,20 +141,33 @@ function Signiture(props){
                         modal
                         trigger={
                             <div
-                                className={sigClass}
+                                style={padStyle}
+                                // className={sigClass}
+                                // style={{
+                                //     width: '200px',
+                                //     height: '50px',
+                                //     border: '1px solid black'
+                                // }}
                             >
-                                
-                            </div>}
+                               
+                            </div>
+                            // <button>TEST</button>
+                            }
                         closeOnDocumentClick={true}
                     >
                         {close => 
                         <>
                             <SigniturePad 
                                 ref={sigCanvas}
+                                backgroundColor='gray'
                                 canvasProps={{
-                                    className: 'signitureCanvas'
+                                    className: 'signitureCanvas',
                                     // height: '20px',
-                                    // border: '1px solid black'
+                                    border: '2px solid black',
+                                    width: '200px',
+                                    height: '75px',
+                                    backgroundColor: 'purple'
+                                    // marginLeft:'500px'
                                 }} 
                             />
                             <br />
@@ -140,7 +179,7 @@ function Signiture(props){
                             <button>Save</button> */}
                             
                             </>
-                        }
+                        } 
                     {/* {
                     imageURL ? (
                         <img
@@ -163,26 +202,8 @@ function Signiture(props){
                 </div>
             </div>
             <br />
-            <div
-                style={{
-                    marginTop: '-20px',
-                    marginLeft: '45px'
-                }}
-            >
-            <span 
-                style={{
-                    fontSize: '9px'
-
-                    
-                }}
-            >
-                I hereby acknowledge the satisfactory completion of the above described work.
-            </span>
-            </div>
         </div>
     )
 }
 
-export default Signiture;
-
-
+export default Signature_Mobile;

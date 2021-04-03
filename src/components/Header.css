@@ -85,53 +85,108 @@ input{
         width: 171px;
         border-left: none;
     }
+    .header__mobile{
+        display: none;
+    }
+
+    .header__mobile__invoice{
+        margin-left: 100px;
+    }
 }
 @media only screen and (max-width: 620px){
     .header{
         margin-top: -25px;
         display: flex;
         flex-direction: row;
+        margin-left: 400px;
     
     }
     
     .header__title{
-        margin-left: 20px;
+        /* margin-left: -5px; */
+        display: none;
     }
-    
-    .header__title > h1 {
-        margin-bottom: 10px;
-    }
-    
-    .header__title > h4 {
-        margin-top: -15px;
-        margin-bottom: 10px;
-    }
-    
-    .header__title > p{
-        margin-top: -10px;
-        font-size: 12px;
-    }
-    
     .header__invoice{
-        /* position: absolute;
-        right: 60px; */
-        margin-left: 10px;
+        display: none;
     }
-    
+    .header__mobile{
+        display: block;
+    }
+
+    .header__mobile__invoice{
+        margin-left: 100px;
+    }
+
     .header__invoiceNumber{
-        margin-top: -25px;
-        margin-left: 25%;
+        margin-left: 35%;
     }
-    
-    .header__invoicePhoneBox{
-        height: 10px;
-        width: 150px;
+
+    .header__docname{
+        /* margin-top: -25px; */
+        margin-left: 35%;
     }
-    
-    .header__invoiceOrderDateBox{
-        width: 150px;
+
+    .header__mobile input[type="text"]{
+        width: 270px;
+        margin-left: 20px;
+        margin-right: 20px;
+        height: 25px;
+        margin-bottom: 2px;
+    }
+    .header__mobile__details div{
+        margin-left: 20px;
+        margin-top: 50px;
+        background: white;
+        border: 2px solid black;
+        margin-bottom: -30px;
+        padding: 5px;
+        font-size: 14px;
+        margin-right: 10px;
     }
 }
 @media only screen and (max-width: 400px){
+    .header{
+        margin-top: -25px;
+        display: flex;
+        flex-direction: row;
+        margin-left: 400px;
+    
+    }
+    
+    .header__title{
+        /* margin-left: -5px; */
+        display: none;
+    }
+    .header__invoice{
+        display: none;
+    }
+    .header__mobile{
+        display: block;
+    }
+
+    .header__mobile__invoice{
+        margin-left: 100px;
+    }
+
+    .header__invoiceNumber{
+        margin-left: 35%;
+    }
+
+    .header__docname{
+        /* margin-top: -25px; */
+        margin-left: 35%;
+    }
+
+    .header__mobile input[type="text"]{
+        width: 270px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .header__mobile__details{
+        margin-left: 20px;
+        margin-top: 50px;
+    }
+
+    
 
 }

@@ -3,7 +3,7 @@ import './Header.css'
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useStateValue } from './StateProvider.js'
-
+import Scroller from './Scroller.js'
 
 function Header(props){
     const [{jobName, job, invoiceNumber}, dispatch] = useStateValue();
@@ -267,8 +267,168 @@ function Header(props){
                     
 
                
+
             </div>
-            
+            <div className="header__mobile">
+                
+                {/* <Scroller> */}
+                <div className="header__mobile__invoice">
+                    <h1
+                    style={{marginLeft: '25%'}}
+                >
+                    INVOICE
+                </h1>
+                
+                <div className="header__invoiceNumber">
+                    No. {invoiceNumber} 
+                </div>
+
+                <div className="header__docname">
+                    {props.docName}
+                </div>
+
+                <input 
+                    style={{marginTop: '-20px'}}
+                    type="text" 
+                    placeholder="Job Name" 
+                    className="header__invoiceJobName"
+                    value={nameLabel}
+                    onClick = {e => {setNameLabel(name)}}
+                    onChange = {e => {setNameLabel(e.target.value); setName(e.target.value)}} 
+                    onBlur = {e => {setNameLabel(`Job Name: ${name}`)}}
+ 
+                />
+                <br />
+                <input 
+                    type="text" 
+                    placeholder="Address"  
+                    width="300"
+                    className="header__address"
+                    value = {addressLabel}
+                    onClick = {e => {setAddressLabel(address)}}
+                    onChange = {e => {setAddressLabel(e.target.value); setAddress(e.target.value)}}
+                    onBlur = {e => {setAddressLabel(`Address: ${address}`)}}
+                />
+                <br />
+                <input 
+                    type="text" 
+                    placeholder="City,State,ZIP"  
+                    width="300"
+                    className="header__cityState"
+                    value = {cityStateLabel}
+                    onClick = {e => {setCityStateLabel(cityState)}}
+                    onChange = {e => {setCityStateLabel(e.target.value); setCityState(e.target.value)}}
+                    onBlur = {e => {setCityStateLabel(`City,State,ZIP: ${cityState}`)}}
+                />
+                <br />
+                <input 
+                    type="text" 
+                    placeholder="Job Phone" 
+                    value = {jobPhoneLabel}
+                    onClick = {e => {setJobPhoneLabel(jobPhone)}}
+                    onChange = {e => {setJobPhoneLabel(e.target.value); setPhone(e.target.value)}}
+                    onBlur = {e => {setJobPhoneLabel(`Phone: ${jobPhone}`)}}                  
+                    // className="header__invoiceOrderDateBox"
+
+                />
+                <br/>
+                <input 
+                    type="text" 
+                    placeholder="Starting Date"  
+                    value = {startingDateLabel}
+                    onClick = {e => {setStartingDateLabel(startingDate)}}
+                    onChange = {e => {setStartingDateLabel(e.target.value); setStartingDate(e.target.value)}}
+                    onBlur = {e => {setStartingDateLabel(`Starting Date: ${startingDate}`)}}
+                    className="header__startDate"
+                />
+                <br />
+                <input 
+                    type="text" 
+                    placeholder="Phone"  
+                    value={phoneLabel}
+                    onChange={e => {setPhoneLabel(e.target.value); setPhone(e.target.value)}}
+                    // onChange={doThis}
+                    onBlur={e => {setPhoneLabel(`Phone: ${phone}`); save()}}
+                    onClick={e => {setPhoneLabel(phone)}}
+                    className="header__phoneBox"
+
+         
+                />
+                <br />
+                <input 
+                    type="text" 
+                    placeholder="Date of Order"  
+                    value={orderDateLabel}
+                    onClick = {e => {setOrderDateLabel(orderDate)}}
+                    onChange = {e => {setOrderDate(e.target.value); setOrderDateLabel(e.target.value)}}
+                    onBlur = {e => {setOrderDateLabel(`Order Date: ${orderDate}`)}}
+                    className="header__invoiceOrderDateBox"
+                />
+                <br />
+                <input 
+                    type="text" 
+                    placeholder="Order Taken By" 
+                    value = {orderTakenByLabel} 
+                    onClick = {e => {setOrderTakenByLabel(orderTakenBy)}}
+                    onChange = {e => {setOrderTakenByLabel(e.target.value); setOrderTakenBy(e.target.value)}}
+                    onBlur = {e => {setOrderTakenByLabel(`Order Taken By: ${orderTakenBy}`)}}
+                    className="header__orderTakenByBox"
+                />
+                <br/>
+                <input 
+                    type="text" 
+                    placeholder="Customer Order Number"
+                    value = {orderNumberLabel}
+                    onClick = {e => {setOrderNumberLabel(orderNumber)}}
+                    onChange = {e => {setOrderNumberLabel(e.target.value); setOrderNumber(e.target.value)}}
+                    onBlur = {e => {setOrderNumberLabel(`Order Number: ${orderNumber}`)}}
+                    className="header__orderNumber"
+                    // style={{width: '170px'}}
+                />
+                <br />
+                <div
+                    style={{
+                        marginBottom: '-15px',
+                        marginTop: '5px',
+                        marginLeft: '20px'
+                    }}
+                >
+                    <input 
+                        type="checkbox" 
+                        checked={type === 'daywork'} 
+                        size="small"
+                        onChange={e => {setType('daywork')}}>
+                    </input>
+                    <span style={{marginRight:'10px'}}>Daywork</span>
+                    <input 
+                        type="checkbox" 
+                        checked={type === 'contract'} 
+                        size="small"
+                        onChange={e => {setType('contract')}}>
+                    </input>
+                    <span style={{marginRight:'10px'}}>Contract</span>
+                    <input 
+                        type="checkbox" 
+                        checked={type === 'extra'} 
+                        size="small"
+                        onChange={e => {setType('extra')}}>
+                    </input>
+                    <span>Extra</span>
+                </div>
+                <br />
+                {/* <div className="header__mobile__details">
+                    <div>Materials: </div>
+                    <div>Labor: </div>
+                    <div>Other: </div>
+                    <div>Tax: </div> 
+                    <div>Total: </div>
+                </div> */}
+                </div>
+
+                
+                {/* </Scroller> */}
+                
+            </div>
         </div>
     )
 }
