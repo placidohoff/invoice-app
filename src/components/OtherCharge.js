@@ -6,12 +6,18 @@ function OtherCharge(props){
     const [price, setPrice] = useState(props.price)
 
     useEffect(() => {
-        props.saveItem({index: props.index, otherCharge:{description: description, price:price}})
+        props.saveItem({index: props.index, otherCharge:{description: description, price:price}, type:'other'})
     }, [description,price])
 
+    // useEffect(() => {
+    //     description === '' ? setPrice('') : setPrice(price)
+    // },[price])
+
     useEffect(() => {
-        description === '' ? setPrice('') : setPrice(price)
-    },[price])
+        if(description == ''){
+            setPrice('')
+        }
+    },[])
 
     return(
         <div className="othercharge">
@@ -27,8 +33,13 @@ function OtherCharge(props){
                 type="number"
                 className="othercharge__price"
                 value={price}
-                onChange={e => {setPrice(e.target.value)}}
-                onBlur={e => {setPrice(Number(price).toFixed(2)); props.calculate({price: price, index: props.index})
+                onChange={e => {
+                    setPrice(e.target.value);
+                    props.calculate({
+                        price: price, index: props.index, 
+                        otherCharge:{description: description, price:price},
+                        type:'other'})}}
+                onBlur={e => {setPrice(Number(price).toFixed(2)); props.calculate({price: price, index: props.index, otherCharge:{description: description, price:price}, type:'other'})
             }}
             />
         </div>

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 function Labor(props){
     const [{user, jobName, job}, dispatch] = useStateValue();
-    const [items, setItems] = useState(job.labor)
+    const [items, setItems] = useState(props.charges)
     const [total, setTotal] = useState(job.totalLabor)
     
     const [label, setLabel] = useState("Total Labor:")
@@ -58,6 +58,9 @@ function Labor(props){
             total += Number(totals[i])
         }
         setTotal(total)
+
+        // props.save({index: obj.index, labor: obj.labor, type:'labor'})
+
 
     }
 

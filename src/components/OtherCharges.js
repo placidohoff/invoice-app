@@ -7,11 +7,11 @@ import { useHistory } from 'react-router-dom'
 function OtherCharges(props){
     //console.log(props)
     const [{user, jobName, job}, dispatch] = useStateValue();
-    const [items, setItems] = useState(job.otherCharges)
+    const [items, setItems] = useState(props.charges)
     const [total, setTotal] = useState(job.totalOther)
     
     const [label, setLabel] = useState("Total Other:")
-        
+    
     const history = useHistory();
 
     const findTotals = () => {
@@ -29,7 +29,7 @@ function OtherCharges(props){
     }
 
     const calculateTotal = (obj) => {
-        console.log(obj)
+        // console.log(obj)
         // setTotal(obj.price)
         totals[obj.index] = Number(obj.price);
         let total = 0;
@@ -37,7 +37,8 @@ function OtherCharges(props){
             total += Number(totals[i])
         }
         setTotal(total)
-        console.log(`TOTALS:${totals} `)
+        // console.log(`TOTALS:${totals} `)
+        // props.save({type: 'other', otherCharge: obj.otherCharge})
 
     }
 
@@ -58,6 +59,7 @@ function OtherCharges(props){
         props.calculate({category:'other', value:total})
 
         console.log(`TOTAL ${total}`)
+
     },[])
 
 

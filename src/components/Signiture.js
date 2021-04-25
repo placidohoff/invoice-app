@@ -87,7 +87,8 @@ function Signiture(props){
                         // whiteSpace: 'pre', 
                         
                         borderBottom: '1px solid black',
-                        minWidth: '180px',
+                        width: '280px',
+                        // minWidth: '180px',
                         // border: '1px solid black',
                         height: '55px',
                         marginTop: '-35px'
@@ -98,12 +99,13 @@ function Signiture(props){
                     imageURL ? (
                         <img
                           src={imageURL}
-                          alt="my signiture"
+                          alt="my signature"
                           style={{
                             display: 'block',
-                            margin: '0 auto',
+                            // margin: '0 auto',
                             // border: '1px solid black',
-                            width: '100%'
+                            width: '100%',
+                            marginTop: '-10px'
                           }}
                         />
                       ) : 

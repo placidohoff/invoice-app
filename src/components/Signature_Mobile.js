@@ -22,7 +22,9 @@ const sigCanvas = useRef([])
 const [sigClass, setSigClass] = useState("sigMobileTriggerPre")
 
 const saveSig = () => {
-    // sigCanvas.backgroundColor
+    console.log(sigCanvas.current)
+    // sigCanvas.current.style.backgroundColor = "white"
+    // sigCanvas.current.props.backgroundColor = "white"
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
     setSigClass("signitureTriggerPost")
     props.saveSignature(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
@@ -44,15 +46,20 @@ const clearSig = () => {
 const padStyle = {
     width: '220px',
     height: '50px',
-    border: '1px solid black',
-    marginTop: '-80px',
+    // border: '1px solid black',
+    marginTop: '-50px',
     cursor: "crosshair",
     zIndex: '10',
-    backgroundColor: 'red',
-    position: 'absolute' 
+    // backgroundColor: 'red',
+    position: 'absolute' ,
+    // marginLeft: '-50px'
 
 }
 
+const makeBackgroundDark = () => {
+    //alert('hello')
+    console.log('make dark')
+}
     return(
         <div className="signatureMobile"
         
@@ -148,38 +155,43 @@ const padStyle = {
                                 //     height: '50px',
                                 //     border: '1px solid black'
                                 // }}
+                                onClick={e =>  (console.log('hello'))}
                             >
-                               
+
                             </div>
+                            
                             // <button>TEST</button>
                             }
-                        closeOnDocumentClick={true}
+                        closeOnDocumentClick={false}
                     >
-                        {close => 
+                        {close => (
                         <>
                             <SigniturePad 
                                 ref={sigCanvas}
-                                backgroundColor='gray'
+                                backgroundColor='#f0f0f0'
+
                                 canvasProps={{
-                                    className: 'signitureCanvas',
+                                    className: 'sigMobileCanvas',
                                     // height: '20px',
-                                    border: '2px solid black',
-                                    width: '200px',
+                                    // border: '2px solid black',
+                                    width: '300px',
                                     height: '75px',
-                                    backgroundColor: 'purple'
+                                    marginLeft: '-50px'
                                     // marginLeft:'500px'
                                 }} 
                             />
                             <br />
-                            <button onClick={clearSig}>Clear</button>
-                            <button onClick={saveSig}>Save</button>
-                            <button onClick={close} id="closeSigBn">Close</button>
+                            <div className="sigMobilePadButtons">
+                                <button style={{marginLeft: '-300px'}} onClick={clearSig}>Clear</button>
+                                <button onClick={saveSig}>Save</button>
+                                <button onClick={close} id="closeSigBn">Close</button>
+                            </div>
                             {/* <button onClick={close}>Save</button> */}
                             {/* <button onClick={close}>Close</button> 
                             <button>Save</button> */}
                             
                             </>
-                        } 
+                        )} 
                     {/* {
                     imageURL ? (
                         <img

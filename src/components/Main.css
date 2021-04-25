@@ -26,61 +26,42 @@
 
 }
 @media only screen and (max-width: 620px){
-    .App{
-        display: none;
-    }
-    .main__mobileContain{
-        display: block;
-        border: 1px solid black;
-        width: 100%;
-        height: 900px;
-    }
-    .main__topButtons{
-        display: flex;
-        flex-direction: row;
-        margin-left: 0px;
-        /* display: none; */
-        /* display: ; */
-    }
-    .main__topButtons_inner{
-        display: flex;
-        flex-direction: row;
-        /* margin-left: 94%; */
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
+    
 
     
     
 }
 @media only screen and (max-width: 400px){
     .App{
-        display: none;
+        /* display: none; */
     }
     .main__mobileContain{
-        display: block;
-        /* border: 1px solid black; */
-        width: 820px;
-        /* height: 120%; */
-        /* display: none; */
-    }
-    .main__topButtons{
-        display: flex;
-        flex-direction: row;
-        margin-left: 300px;
-        /* border: 1px solid black; */
-        width: 1000px;
-        /* display: none; */
-        /* display: ; */
-    }
-    .main__topButtons_inner{
-        display: flex;
-        flex-direction: row;
-        margin-left: 200px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        /* border: 1px solid black; */
-        width: 1000px;
+        /* display: block;
+
+        width: 820px; */
+
     }
     
+    
+}
+
+
+.App{
+    display: block;
+}
+.main__mobileContain{
+    display: none;
+}
+.main__topButtons{
+    display: flex;
+    flex-direction: row;
+    margin-left: 526px;
+    /* display: ; */
+}
+.main__topButtons_inner{
+    display: flex;
+    flex-direction: row;
+    margin-left: 84%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

@@ -1,3 +1,65 @@
+
+
+@media only screen and (max-width: 640px){
+    input{
+        border: 1px solid black;
+    }
+    textarea{
+        border: 1px solid black;
+    }
+    .othercharge{
+
+    }
+    .othercharge__description{
+        width: 288px;
+        border-right: 0px solid black;
+
+    }
+    
+    .othercharge__price{
+        position: absolute;
+        width: 55px;
+        margin-top: 3px;
+
+    }
+}
+/* @media only screen and (max-width: 620px){
+    
+}
+
+@media only screen and (max-width: 400px){
+    input{
+        border: 1px solid black;
+    }
+    textarea{
+        border: 1px solid black;
+    }
+    .othercharge{
+
+    }
+    .othercharge__description{
+        width: 188px;
+        border-right: 0px solid black;
+
+    }
+    
+    input{
+        border: 1px solid black;
+    }
+    textarea{
+        border: 1px solid black;
+    }
+    .othercharge{
+
+    }
+    
+    .othercharge__price{
+
+        width: 55px;
+
+    }
+} */
+
 input{
     border: 1px solid black;
 }
@@ -5,18 +67,17 @@ textarea{
     border: 1px solid black;
 }
 .othercharge{
-    /* margin-bottom: -2px; */
+
 }
 .othercharge__description{
     width: 288px;
     border-right: 0px solid black;
-    /* height: 40px; */
+
 }
 
 .othercharge__price{
     position: absolute;
     width: 55px;
     margin-top: 3px;
-    /* height: 30px; */
-    /* margin-top: px; */
+
 }

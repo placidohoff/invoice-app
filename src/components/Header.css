@@ -93,7 +93,7 @@ input{
         margin-left: 100px;
     }
 }
-@media only screen and (max-width: 620px){
+/* @media only screen and (max-width: 620px){
     .header{
         margin-top: -25px;
         display: flex;
@@ -103,7 +103,7 @@ input{
     }
     
     .header__title{
-        /* margin-left: -5px; */
+
         display: none;
     }
     .header__invoice{
@@ -122,7 +122,7 @@ input{
     }
 
     .header__docname{
-        /* margin-top: -25px; */
+        
         margin-left: 35%;
     }
 
@@ -143,8 +143,8 @@ input{
         font-size: 14px;
         margin-right: 10px;
     }
-}
-@media only screen and (max-width: 400px){
+} */
+/* @media only screen and (max-width: 400px){
     .header{
         margin-top: -25px;
         display: flex;
@@ -154,7 +154,7 @@ input{
     }
     
     .header__title{
-        /* margin-left: -5px; */
+        
         display: none;
     }
     .header__invoice{
@@ -173,7 +173,7 @@ input{
     }
 
     .header__docname{
-        /* margin-top: -25px; */
+        
         margin-left: 35%;
     }
 
@@ -189,4 +189,114 @@ input{
 
     
 
+} */
+
+.header{
+    margin-top: -50px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.header__title{
+    margin-left: -5px;
+}
+
+.header__title > h1 {
+    margin-bottom: 10px;
+}
+
+.header__title > h4 {
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
+.header__title > p{
+    margin-top: -10px;
+    font-size: 12px;
+}
+
+.header__invoice{
+    /* position: absolute;
+    right: 60px; */
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.header__invoiceNumber{
+    margin-top: -25px;
+    margin-left: 35%;
+}
+
+.header__invoicePhoneBox{
+    height: 10px;
+    width: 150px;
+}
+
+.header__invoiceOrderDateBox{
+    /* width: 150px; */
+    width: 170px;
+    border-left: none;
+    /* margin-left: */
+}
+
+.header__orderNumber{
+    /* width: 260px; */
+    border-left: none;
+}
+
+.header__invoiceOrderTakenBy{
+    width: 150px;
+}
+
+.header__invoiceCustomerNumber{
+    width: 150px;
+}
+.header__invoiceJobName{
+    /* width: 98%; */
+    width: 345px;
+}
+.header__orderNumber{
+    /* height: 10px; */
+    width: 165px;
+}
+
+.header__address{
+    width: 345px;
+}
+
+.header__cityState{
+    width: 345px;
+}
+
+.header__startDate{
+    width: 171px;
+    border-left: none;
+}
+.header__mobile{
+    display: none;
+}
+
+.header__mobile__invoice{
+    margin-left: 100px;
+}
+
+.header__rci{
+    font-size: 60px;
+    font-style: italic;
+    font-family: Impact, Haettenschweiler, “Franklin Gothic Bold”, Charcoal, “Helvetica Inserat”, “Bitstream Vera Sans Bold”, “Arial Black”, sans serif;
+    /* width: 300px; */
+}
+
+.header__rciSub{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.header__invoiceTop{
+    font-size: 40px;
+    color: black;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }

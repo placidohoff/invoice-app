@@ -38,6 +38,8 @@ function Main(){
   const history = useHistory();
   const [signatureImage, setSignatureImage] = useState(job.signatureImage)
 
+  // const [testString, setTestString] = useState(0)
+
   let name = jobName; 
   let sig = signatureImage;
 
@@ -51,6 +53,12 @@ function Main(){
       // calculate={calculateTotal}
     />
     )
+
+    
+
+    useEffect(() => {
+      window.addEventListener('resize', resizeFunction)
+    },[])
 
     useEffect(() => {
       setJobObject({
@@ -69,8 +77,10 @@ function Main(){
         signatureImage: sig,
         invoiceNumber: invoiceNum
       })
-      console.log(jobObject)
+      // console.log(jobObject)
 
+
+      // setTestString('hello')
     }, [materialsList, otherChargesList, laborList, headerInfo, description, signatureImage])
 
     const calculateTotal = (obj) => {
@@ -90,6 +100,7 @@ function Main(){
       
        
       setTotal(Number(totalMaterials + totalLabor + totalOther).toFixed(2))
+
     }
 
     const saveInvoice = (obj) => {
@@ -102,8 +113,24 @@ function Main(){
         //   }
         // })
         setMaterialsList(obj.materials)
-        console.log(materialsList)
-        
+        // setDetailsComponent(<Details 
+        //                       calculate = {calculateTotal}
+        //                       materials = {materialsList}
+        //                       save = {saveInvoice}
+        //                     />)
+        // setDetailsMobileComponent(<Details_Mobile 
+        //                             materials={materialsList}
+        //                             totalMaterials={totalMaterials}
+        //                             labor={laborList}
+        //                             totalLabor={totalLabor}            
+        //                             otherCharges={otherChargesList}
+        //                             totalOther={totalOther}
+        //                             calculate = {calculateTotal}
+        //                             save = {saveInvoice}
+        //                           />)
+        // console.log(obj.materials)
+        //console.log('YOOOOOOOO!!!!!!!!!!')
+
       }
       else if(obj.type === 'other'){
         setOtherChargesList(obj.otherCharges)
@@ -111,6 +138,7 @@ function Main(){
       }
       else if(obj.type == 'labor'){
         setLaborList(obj.labor)
+        console.log('YOOOOOOO!!!!')
         console.log(laborList)
       }
       else if(obj.type == 'header'){
@@ -129,7 +157,144 @@ function Main(){
 
       
     }
+
+    const saveSignature = (imageURL) => {
+    
+      setSignatureImage(imageURL)
+      sig = imageURL;
+      console.log("GIVE ME A SIGN...", imageURL)
   
+      // dispatch({
+      //   type: 'NEW_SIGNATURE',
+      //   item: {
+      //       signatureImage: imageURL
+      //   }
+      // })
+      console.log("yooooooooo")
+    }
+
+    //A List of variables defining the components to be used upon resize:
+    const [detailsComponent, setDetailsComponent] = useState(<Details 
+                                                              calculate = {calculateTotal}
+                                                              materials = {jobObject.materials}
+                                                              save = {saveInvoice}
+                                                            />)
+
+    const [headerComponent, setHeaderComponent] = useState(<Header 
+                                                            job = {jobObject}
+                                                            save = {saveInvoice}
+                                                            invoiceNum = {jobObject.invoiceNum}
+                                                            docName={jobObject.docName}
+                                                          />)
+
+    const [signatureComponent, setSignatureComponent] = useState(<Signiture 
+                                                                    signatureImage={jobObject.signatureImage}
+                                                                    saveSignature={saveSignature}
+                                                                />)
+
+    const [descriptionComponent, setDescriptionComponent] = useState(<Description 
+                                                                      save = {saveInvoice}
+                                                                    />)   
+
+    const [otherChargesComponent, setOtherChargesComponent] = useState(<OtherCharges 
+                                                                        calculate = {calculateTotal}
+                                                                        save = {saveInvoice}
+                                                                        charges={jobObject.otherCharges}
+                                                                      />)
+
+    const [laborComponent, setLaborComponent] = useState(<Labor 
+                                                          calculate = {calculateTotal}
+                                                          save = {saveInvoice}
+                                                          charges={jobObject.labor}
+                                                        />)   
+                                    
+    const [footerComponent, setFooterComponent] = useState(<Footer 
+                                                            totalLabor = {totalLabor}
+                                                            totalMaterials = {totalMaterials}
+                                                            totalOther = {totalOther}
+                                                            tax = {tax}
+                                                            total = {total}
+                                                            calculate={calculateTotal}
+                                                          />)  
+                                     
+                                        
+    const [detailsMobileComponent, setDetailsMobileComponent] = useState(<Details_Mobile 
+                                                                          materials={jobObject.materials}
+                                                                          totalMaterials={totalMaterials}
+                                                                          labor={jobObject.labor}
+                                                                          totalLabor={totalLabor}            
+                                                                          otherCharges={jobObject.otherCharges}
+                                                                          totalOther={totalOther}
+                                                                          calculate = {calculateTotal}
+                                                                          save = {saveInvoice}
+                                                                        />)                                    
+    
+    const [signatureMobileComponent, setSignatureMobileComponent] = useState(<Signature_Mobile
+                                                                                signatureImage={jobObject.signatureImage}
+                                                                                saveSignature={saveSignature}
+                                                                           />)                                                                    
+    
+    const resizeFunction = () => {
+      // I can see a potential ERROR in logic... instead of passing the job object from the useStateValue, I should send a custom object? Because this way, It is never updated until I save to the database. I must find a way to update it upon resize despite saving it to db yet??
+      setHeaderComponent(<Header 
+                          job = {jobObject}
+                          save = {saveInvoice}
+                          invoiceNum = {jobObject.invoiceNum}
+                          docName={jobObject.docName}
+                        />)
+
+      setDetailsComponent(<Details 
+                            calculate = {calculateTotal}
+                            materials = {jobObject.materials}
+                            save = {saveInvoice}
+                          />)
+
+      setSignatureComponent(<Signiture 
+                                signatureImage={jobObject.signatureImage}
+                                saveSignature={saveSignature}
+                            />)
+
+      setOtherChargesComponent(<OtherCharges 
+                                calculate = {calculateTotal}
+                                save = {saveInvoice}
+                                charges={jobObject.otherChargesList}
+                                totalOther={totalOther}
+                              />)
+
+      setLaborComponent(<Labor 
+                          calculate = {calculateTotal}
+                          save = {saveInvoice}
+                          charges={jobObject.labor}
+                        />)
+
+      setFooterComponent(<Footer 
+                          totalLabor = {totalLabor}
+                          totalMaterials = {totalMaterials}
+                          totalOther = {totalOther}
+                          tax = {tax}
+                          total = {total}
+                          calculate={calculateTotal}
+                        />)
+                        
+      setDetailsMobileComponent(<Details_Mobile 
+                                  materials={jobObject.materials}
+                                  totalMaterials={totalMaterials}
+                                  labor={jobObject.labor}
+                                  totalLabor={totalLabor}            
+                                  otherCharges={jobObject.otherCharges}
+                                  totalOther={totalOther}
+                                  calculate = {calculateTotal}
+                                  save = {saveInvoice}
+                                />)
+
+      setSignatureMobileComponent(<Signature_Mobile
+                                    signatureImage={jobObject.signatureImage}
+                                    saveSignature={saveSignature}
+                                  />)
+
+      console.log("RESIZZZZZZZZZZZZZE")
+    }
+                                                                           
     const animate = (flag) => {
       if(flag == true){
         gsap.to('.saveSuccess', {
@@ -274,13 +439,34 @@ function Main(){
       for(let i = 0; i < materialsList.length; i++){
         
         materialsTotal += Number(materialsList[i].amount)
+        console.log('TESTING....')
+        console.log(materialsList)
+        console.log(laborList)
+        console.log(otherChargesList)
         
       }
-      for(let i = 0; i < laborList.length; i++){
+      setTimeout(function() {
 
-        laborTotal += Number(laborList[i].amount)
+      
+        if(laborList !== undefined){
+          for(let i = 0; i < laborList.length; i++){
 
+            laborTotal += Number(laborList[i].amount)
+
+          }
       }
+        else{
+          console.log("ERROR IS HERE: ", job)
+          setTimeout(function() {
+            //for(let i = 0; i < laborList.length; i++){
+
+              //laborTotal += Number(laborList[i].amount)
+
+            //}
+            laborTotal = laborTotal
+          }, 500)
+        }
+      }, 1000)
       for(let i = 0; i < otherChargesList.length; i++){
         
         othersTotal += Number(otherChargesList[i].price)
@@ -325,20 +511,7 @@ function Main(){
     
   }
 
-  const saveSignature = (imageURL) => {
-    
-    setSignatureImage(imageURL)
-    sig = imageURL;
-    console.log("GIVE ME A SIGN...", imageURL)
-
-    // dispatch({
-    //   type: 'NEW_SIGNATURE',
-    //   item: {
-    //       signatureImage: imageURL
-    //   }
-    // })
-    console.log("yooooooooo")
-  }
+ 
 
 
 
@@ -428,14 +601,18 @@ function Main(){
             >
             
           
-          {console.log(invoiceNumber)}
+          
           <Header 
-            job = {job}
+            job = {jobObject}
             save = {saveInvoice}
             invoiceNum = {invoiceNum}
             docName={docName}
           />
+
+          {/* {headerComponent} */}
+
           <br />
+
           <div className="app__mainBody">
             <div
               style={{
@@ -445,33 +622,45 @@ function Main(){
             >
               <Details 
                 calculate = {calculateTotal}
-                materials = {materialsList}
+                materials = {jobObject.materials}
                 save = {saveInvoice}
               />
 
+              {/* {detailsComponent} */}
+
               <Signiture 
-                signatureImage={signatureImage}
+                signatureImage={jobObject.signatureImage}
                 saveSignature={saveSignature}
               />
+
+              {/* {signatureComponent} */}
+
               </div>
 
             <div>
               
               
                 <Description 
-                  // calculate = {calculateTotal}
                   save = {saveInvoice}
                 />
+
+                {/* {descriptionComponent} */}
+
                 <OtherCharges 
                   calculate = {calculateTotal}
                   save = {saveInvoice}
-                  charges={otherChargesList}
+                  charges={jobObject.otherCharges}
                 />
+
+                {/* {otherChargesComponent} */}
+
                 <Labor 
                   calculate = {calculateTotal}
                   save = {saveInvoice}
-                  charges={laborList}
+                  charges={jobObject.labor}
                 />
+
+                {/* {laborComponent} */}
               
               {/* {footer} */}
               <Footer 
@@ -482,6 +671,8 @@ function Main(){
                 total = {total}
                 calculate={calculateTotal}
               />
+
+              {/* {footerComponent} */}
               
               {/* <button
                 onClick={push}
@@ -497,28 +688,38 @@ function Main(){
           </div>
           
           {/*SECTION: MAIN CONTAINER FOR MOBILE */}
-          <div className="main__mobileContain">
-          <Header 
-            job = {job}
+          <div className="main__mobileContain"
+            style={{}}
+          >
+          {/* <Header 
+            job = {jobObject}
             save = {saveInvoice}
             invoiceNum = {invoiceNum}
             docName={docName}
-          />
+          /> */}
+
+          {headerComponent}
           
-          <Details_Mobile 
-            materials={materialsList}
+          {/* <Details_Mobile 
+            materials={jobObject.materials}
             totalMaterials={totalMaterials}
-            labor={laborList}
+            labor={jobObject.labor}
             totalLabor={totalLabor}            
-            otherCharges={otherChargesList}
+            otherCharges={jobObject.otherCharges}
             totalOther={totalOther}
-          />
+            calculate = {calculateTotal}
+            save = {saveInvoice}
+          /> */}
+
+          {detailsMobileComponent}
           
-           <Signature_Mobile
-              signatureImage={signatureImage}
+           {/* <Signature_Mobile
+              signatureImage={jobObject.signatureImage}
               saveSignature={saveSignature}
 
-          /> 
+          />  */}
+
+          {signatureMobileComponent}
             
           </div>
 

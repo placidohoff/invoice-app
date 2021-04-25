@@ -14,10 +14,10 @@ function JobItem(props){
         :
         setAmount((price*qty).toFixed(2))
         
-        props.calculateTotal({amount:amount, index: props.index})
+        props.calculateTotal({amount:amount, index: props.index, type: 'material', material:{qty: qty, material:material, price: price, amount:amount}})
         //setPrice((price).toFixed(2))
         //Within this function perhaps I can dispatch to lessen the state changes loop
-        props.saveItem({index: props.index, material:{qty: qty, material:material, price: price, amount:amount}})
+        props.saveItem({index: props.index, material:{qty: qty, material:material, price: price, amount:amount}, type:'material'})
         
     }, [price, qty, amount])
 
@@ -44,11 +44,11 @@ function JobItem(props){
                 onChange={e => {
                     setQty(e.target.value); 
                     qty === 0 || price === 0 ? setAmount('') : setAmount((price*qty).toFixed(2));
-                    props.calculateTotal({amount:amount, index: props.index})
+                    props.calculateTotal({amount:amount, index: props.index, type:'material', material:{qty: qty, material:material, price: price, amount:amount}})
                 
                 }}
                 onBlur={e => {setAmount((price*qty).toFixed(2));
-                    props.calculateTotal({amount:amount, index: props.index})}}
+                    props.calculateTotal({amount:amount, index: props.index, type:'material', material:{qty: qty, material:material, price: price, amount:amount}})}}
 
                    
             />
@@ -71,30 +71,14 @@ function JobItem(props){
                 onBlur={e => {
                     setPrice(Number(e.target.value).toFixed(2)); 
                     material === '' ? setAmount('') : setAmount((price*qty).toFixed(2));
-                    material === '' ? setAmount('') :  props.calculateTotal({amount:amount, index: props.index})
+                    material === '' ? setAmount('') :  props.calculateTotal({amount:amount, index: props.index, type:'material', material:{qty: qty, material:material, price: price, amount:amount}})
             }}
             />
-            {/* {
-                qty === '' && price === '' 
-                ?
-                setAmount('')
-                :
-                setAmount(price * qty)
-            } */}
+
             <input 
                 type="number"   
                 className="jobitem__amount"
                 value={amount}
-                // onChange={props.saveMaterial({
-                //     index: props.index,
-                //     data: {
-                //         qty: qty,
-                //         material: material,
-                //         price: price,
-                //         amount: amount
-                //     }
-                // })}
-                // onChange={props.save()}
             />
             {/* <br /> */}
         </div>

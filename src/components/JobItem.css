@@ -3,7 +3,7 @@
 @media only screen and (min-width: 640px){
     .jobitem{
         margin-left: -15px;
-        /* outline-width: thin;  */
+
     }
     .jobitem__qty{
         width: 41px;
@@ -12,10 +12,7 @@
     }
     .jobitem__material{
         width: 233px;
-        /* outline-width: thin; */
-        /* border-top: 1px solid black;
-        border-bottom: 1px solid black; */
-        /* border: 1px solid black; */
+
     }
     .jobitem__price{
         width: 55px;
@@ -25,12 +22,61 @@
     .jobitem__amount{
         width: 62px;
         border-left: 0px solid black;
-        /* border-right: none; */
     }
 }
-@media only screen and (max-width: 620px){
-
+/* @media only screen and (max-width: 620px){
+    
 }
 @media only screen and (max-width: 400px){
+    .jobitem{
+        margin-left: -15px;
+        margin-bottom: 5px;
+
+    }
+    .jobitem__qty{
+        width: 21px;
+        text-align: right;
+        border-right: 0px solid black;
+        height: 20px;
+    }
+    .jobitem__material{
+        width: 133px;
+        height: 20px;
+
+    }
+    .jobitem__price{
+        width: 45px;
+        border-left: 0px solid black;
+        height: 20px;
+    }
+    .jobitem__amount{
+        width: 42px;
+        border-left: 0px solid black;
+        height: 20px;
+
+    }
+} */
+
+.jobitem{
+    margin-left: -15px;
 
 }
+.jobitem__qty{
+    width: 41px;
+    text-align: right;
+    border-right: 0px solid black;
+}
+.jobitem__material{
+    width: 233px;
+
+}
+.jobitem__price{
+    width: 55px;
+    border-left: 0px solid black;
+    
+}
+.jobitem__amount{
+    width: 62px;
+    border-left: 0px solid black;
+}
+

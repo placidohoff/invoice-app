@@ -24,7 +24,7 @@ function Details(props){
 
 
         const [{user, jobName, job, username}, dispatch] = useStateValue();
-        const [items, setItems] = useState(job.materials)
+        const [items, setItems] = useState(props.materials)
         const [total, setTotal] = useState(job.totalMaterials)
         const [totals, setTotals] = useState([items[0].amount])
         
@@ -65,18 +65,7 @@ function Details(props){
         }
 
         const calculateTotal = (obj) => {
-            //alert(amount)
-            //setTotal(Number(total) + Number(amount))
-            // console.log(`Total: ${total}`)
-            // console.log(`Amount: ${amount}`)
-            // console.log(Number(amount) + Number(total))
-            // for(let i = 0; i < items.length; i++){
-            //     setTotal(0 + Number(items.amount))
-            //     console.log(items)
-            // }
-            //items[0].amount = amount;
-            //setTotal(Number(amount))
-            //setTotal(obj.amount)
+            
             totals[obj.index] = obj.amount;
             let total = 0;
             for(let i = 0; i < totals.length; i++){
@@ -85,10 +74,7 @@ function Details(props){
             }
             setTotal(total)
             console.log(user)
-            // setTotal(total)
-            // items.forEach(item => {
-            //     setTotal(total + item.amount)
-            // })
+            
         }
 
         useEffect(() => {
@@ -143,7 +129,7 @@ function Details(props){
                 className="details__dateCompleted"
             />
             <div className="details__totalMaterialsLabel">Total Materials:</div>
-            <input 
+            <input  
                 type="text"
                 className="details__totalMaterialsBox"
                 value={Number((total)).toFixed(2)}

@@ -110,8 +110,8 @@ function Header(props){
     return(
         <div className="header">
             <div className="header__title">
-                <h1>RCI</h1>
-                <h4>Electrical Contractor</h4>
+                <h1 className="header__rci">RCI</h1>
+                <h4 className="header__rciSub">ELECTRICAL CONTRACTOR</h4>
                 <p>Tel: (855)644-1748 * (888)55-CALLRCI</p>
                 <p>E-mail: us@Quotemyelectrical@gmail.com</p>
                 <div style={{display:'flex', flexDirection:'row', whiteSpace: 'pre'}}><span>To:</span><div style={lineStyle}>{blank}</div></div><br />
@@ -129,7 +129,8 @@ function Header(props){
             </div>
             <div className="header__invoice">
                 <h1
-                    style={{marginLeft: '25%'}}
+                    style={{marginLeft: '20%'}}
+                    className="header__invoiceTop"
                 >
                     JOB INVOICE
                 </h1>
