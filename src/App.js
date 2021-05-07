@@ -24,7 +24,7 @@ import { jobData } from './components/Empty';
 // import { useHistory } from 'react-router-dom'
 import Main from './components/Main.js'
 import MobileViewItems from './components/MobileViewItems.js'
-
+import Dashboard from './components/Dashboard.js'
 
 function App() {
 
@@ -40,6 +40,12 @@ function App() {
 
         <Route path="/jobs">
           <ViewJobs />
+          
+        </Route>
+
+        <Route path="/dashboard">
+
+          <Dashboard />
           
         </Route>
 

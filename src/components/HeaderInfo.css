@@ -1,0 +1,16 @@
+.headerinfo__inputContainer{
+    width: 300px;
+    margin-bottom: 5px;
+    /* border: 1px solid black; */
+    /* height: 50px; */
+}
+
+.headerinfo__inputContainer input{
+    /* float: right; */
+    margin-top: -21px;
+}
+
+.headerinfo__labelWrap{
+    /* border: 1px solid black; */
+    width: 110px;
+}

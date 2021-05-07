@@ -242,11 +242,12 @@ input{
 
 .header__orderNumber{
     /* width: 260px; */
-    border-left: none;
+    /* border-left: none; */
+    width: 345px;
 }
 
-.header__invoiceOrderTakenBy{
-    width: 150px;
+.header__orderTakenByBox{
+    width: 345px;
 }
 
 .header__invoiceCustomerNumber{
@@ -271,7 +272,11 @@ input{
 
 .header__startDate{
     width: 171px;
-    border-left: none;
+    /* border-left: none; */
+}
+.header__completeDate{
+    width: 171px;
+    /* border-left: none; */
 }
 .header__mobile{
     display: none;

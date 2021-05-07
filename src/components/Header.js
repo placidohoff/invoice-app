@@ -6,7 +6,7 @@ import { useStateValue } from './StateProvider.js'
 import Scroller from './Scroller.js'
 
 function Header(props){
-    const [{jobName, job, invoiceNumber}, dispatch] = useStateValue();
+    const [{jobName, job, invoiceNumber, superUser, user}, dispatch] = useStateValue();
     
     const [jobObject, setJobObject] = useState(props.job)
 
@@ -44,6 +44,18 @@ function Header(props){
     const [startingDate, setStartingDate] = useState(jobObject.headerInfo.startingDate)
     const [startingDateLabel, setStartingDateLabel] = useState(`Starting Date: ${startingDate}`)
     
+    const [completionDate, setCompletionDate] = useState(jobObject.headerInfo.dateCompleted)
+    const [completionDateLabel, setCompletionDateLabel] = useState(`Date of Completion: ${completionDate}`)
+    
+    const [state, setState] = useState(jobObject.state)
+    const [stateLabel, setStateLabel] = useState(`State: ${state}`)
+    
+    const [city, setCity] = useState(jobObject.city)
+    const [cityLabel, setCityLabel] = useState(`City: ${city}`)
+    
+    const [zip, setZip] = useState(jobObject.zip)
+    const [zipLabel, setZipLabel] = useState(`Zip: ${zip}`)
+
     //const [invoiceNum, setInvoiceNum] = useState(invoiceNum)
 
     const save = () => {
@@ -169,6 +181,7 @@ function Header(props){
                     onBlur = {e => {setOrderTakenByLabel(`Order Taken By: ${orderTakenBy}`)}}
                     className="header__orderTakenByBox"
                 />
+                <br />
                 <input 
                     type="text" 
                     placeholder="Customer Order Number"
@@ -177,7 +190,7 @@ function Header(props){
                     onChange = {e => {setOrderNumberLabel(e.target.value); setOrderNumber(e.target.value)}}
                     onBlur = {e => {setOrderNumberLabel(`Order Number: ${orderNumber}`)}}
                     className="header__orderNumber"
-                    style={{width: '170px'}}
+                    style={{width: '345px'}}
                 />
                 <br />
                 <div
@@ -233,35 +246,64 @@ function Header(props){
                     onBlur = {e => {setAddressLabel(`Address: ${address}`)}}
                 />
                 <br />
-                <input 
-                    type="text" 
-                    placeholder="City,State,ZIP"  
-                    width="300"
-                    className="header__cityState"
-                    value = {cityStateLabel}
-                    onClick = {e => {setCityStateLabel(cityState)}}
-                    onChange = {e => {setCityStateLabel(e.target.value); setCityState(e.target.value)}}
-                    onBlur = {e => {setCityStateLabel(`City,State,ZIP: ${cityState}`)}}
-                />
+                <div
+                    style={{
+                        display:'flex',
+                        flexDirection:'row'
+                    }}
+                >
+                    <input 
+                        type="text" 
+                        placeholder="City"  
+                        // width="200"
+                        // className="header__cityState"
+                        style={{width:'120px'}}
+                        value = {city}
+                        onClick = {e => {setCityLabel(city)}}
+                        onChange = {e => {setCityLabel(e.target.value); setCity(e.target.value)}}
+                        onBlur = {e => {setCityLabel(`City: ${city}`)}}
+                    />
+                    <input 
+                        type="text" 
+                        placeholder="State"  
+                        // width="200"
+                        // className="header__cityState"
+                        style={{width:'60px'}}
+                        value = {state}
+                        onClick = {e => {setStateLabel(state)}}
+                        onChange = {e => {setStateLabel(e.target.value); setState(e.target.value)}}
+                        onBlur = {e => {setStateLabel(`State: ${state}`)}}
+                    />
+                    <input 
+                        type="text" 
+                        placeholder="Zip"  
+                        // width="200"
+                        // className="header__cityState"
+                        style={{width:'120px'}}
+                        value = {zip}
+                        onClick = {e => {setZipLabel(zip)}}
+                        onChange = {e => {setZipLabel(e.target.value); setZip(e.target.value)}}
+                        onBlur = {e => {setZipLabel(`Zip Code: ${zip}`)}}
+                    />
+                </div>
                 <br />
-                <input 
-                    type="text" 
-                    placeholder="Job Phone" 
-                    value = {jobPhoneLabel}
-                    onClick = {e => {setJobPhoneLabel(jobPhone)}}
-                    onChange = {e => {setJobPhoneLabel(e.target.value); setPhone(e.target.value)}}
-                    onBlur = {e => {setJobPhoneLabel(`Phone: ${jobPhone}`)}}                  
-                    // className="header__invoiceOrderDateBox"
-
-                />
                 <input 
                     type="text" 
                     placeholder="Starting Date"  
                     value = {startingDateLabel}
-                    onClick = {e => {setStartingDateLabel(startingDate)}}
+                     onClick = {e => {setStartingDateLabel(startingDate); console.log(superUser)}}
                     onChange = {e => {setStartingDateLabel(e.target.value); setStartingDate(e.target.value)}}
                     onBlur = {e => {setStartingDateLabel(`Starting Date: ${startingDate}`)}}
                     className="header__startDate"
+                />
+                <input 
+                    type="text" 
+                    placeholder="Date of Completion"  
+                    value = {completionDateLabel}
+                    onClick = {superUser ? e => {setCompletionDateLabel(completionDate)} : null}
+                    onChange = {superUser ? e => {setCompletionDateLabel(e.target.value); setCompletionDate(e.target.value)} : null}
+                    onBlur = {superUser ? e => {setCompletionDateLabel(`Finish Date: ${completionDate}`)} : null}
+                    className="header__completeDate"
                 />
 
                 
@@ -270,6 +312,7 @@ function Header(props){
                
 
             </div>
+            
             <div className="header__mobile">
                 
                 {/* <Scroller> */}

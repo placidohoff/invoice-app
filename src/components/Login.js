@@ -3,7 +3,7 @@ import './Login.css'
 import { auth } from '../firebase.js'
 import { useHistory } from 'react-router-dom'
 import { useStateValue } from './StateProvider.js'
-
+import { db } from '../firebase.js'
 
 
 
@@ -53,6 +53,52 @@ function Login(){
         }
     }
 
+    const createUser = (e) => {
+        e.preventDefault();
+
+        if(email == '' || password == ''){
+            setUserError(true)
+            setErrorMessage('Please fill out both fields')
+        }
+        else{
+        auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((auth) => {
+            //.then() is called after a successful .createUserWit.....(). We log to see it.
+            console.log(auth)
+
+            //if successful, redirect to home.
+            if(auth){
+
+                db.collection('emails').doc(email).set({
+                    email: email,
+                    username: email.split('@')
+          
+                  })
+
+                dispatch({
+                    type: 'LOGIN',
+                    item: {
+                        user: email,
+                        username: email.split('@')
+                    }
+                })
+                history.push('/jobs');
+            }
+        })
+        .catch(
+            error => {
+                //alert(error.message)
+                console.log(error)
+                setUserError(true)
+                setErrorMessage('Error, create/login was unsucessful')
+            }
+            
+        )
+        }
+    }
+
+
 
     return(
         <div className="login">
@@ -81,6 +127,7 @@ function Login(){
                 </button>
                 <button
                     type="submit"
+                    onClick={createUser}
                     // onClick={createUser}
                 >
                     Create

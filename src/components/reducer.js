@@ -1,4 +1,5 @@
 export const initialState = {
+    superUser: false,
     user:'', 
     // invoiceNumber: 123456,
     //isNew: false,
@@ -57,6 +58,17 @@ export const initialState = {
 
 const reducer = (state, action) => {
     switch(action.type){
+        case 'PROCEED_TO_INVOICE':
+            state.job.headerInfo = action.item.headerInfo
+            return{
+                ...state
+            }
+        case 'SUPER_USER':
+            state.superUser = true
+            return{
+                ...state,
+                superUser: true
+            }
         case 'LOGIN':
             console.log(action.item.user)
             // state.user = action.item.user

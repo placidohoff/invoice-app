@@ -38,6 +38,7 @@ function Main(){
   const history = useHistory();
   const [signatureImage, setSignatureImage] = useState(job.signatureImage)
 
+  const [canEdit, setCanEdit] = useState(false)
   // const [testString, setTestString] = useState(0)
 
   let name = jobName; 
@@ -58,6 +59,8 @@ function Main(){
 
     useEffect(() => {
       window.addEventListener('resize', resizeFunction)
+      if(user == 'tester')
+        setCanEdit(true)
     },[])
 
     useEffect(() => {
