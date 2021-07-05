@@ -3,6 +3,7 @@ import './Details.css'
 import JobItem from './JobItem.js'
 import { useStateValue } from './StateProvider.js'
 import { useHistory } from 'react-router-dom'
+import TaxModule from './TaxModule.js'
 
 
 function Details(props){
@@ -27,7 +28,10 @@ function Details(props){
         const [items, setItems] = useState(props.materials)
         const [total, setTotal] = useState(job.totalMaterials)
         const [totals, setTotals] = useState([items[0].amount])
-        
+        // const [tax, setTax] = useState(job.taxRate)
+        const [taxRate, setTaxRate] = useState(0.07)
+        const [totalTax, setTotalTax] = useState(total * taxRate)
+        const [cityState, setCityState] = useState(job.cityState)
 
         const history = useHistory();
 
@@ -70,11 +74,36 @@ function Details(props){
             let total = 0;
             for(let i = 0; i < totals.length; i++){
                 total += Number(totals[i])
-                console.log(total)
+                // console.log(total)
             }
+            //total += (total*taxRate)
             setTotal(total)
-            console.log(user)
+            setTotalTax(total*taxRate)
             
+            // console.log(user)
+            
+        }
+
+        const adjustTaxRate = (obj) => {
+            //  setTaxRate(obj.taxRate)
+            //alert(obj.key)
+            setTaxRate(obj.taxRate)
+            setTotalTax(total*obj.taxRate)
+            setCityState(obj.state)
+
+            dispatch({
+                type: 'SET_TAX',
+                item:{
+                    cityState: obj.state,
+                    taxRate: obj.taxRate
+                }
+            })
+            //props.calculate({category:'materials', materials:total, taxAmount:totalTax})
+            //console.log(taxRate)
+        }
+
+        const changeState = (place) => {
+
         }
 
         useEffect(() => {
@@ -118,6 +147,10 @@ function Details(props){
                 )
                 
             }
+
+            <TaxModule 
+                adjustTaxRate={adjustTaxRate}
+            />
             
 
             {/* <button onClick={makeNew}>Add New</button> */}
@@ -132,11 +165,11 @@ function Details(props){
             <input  
                 type="text"
                 className="details__totalMaterialsBox"
-                value={Number((total)).toFixed(2)}
+                value={Number((total + totalTax)).toFixed(2)}
                 onChange={
-                    props.calculate({category:'materials', value:total}),
+                    props.calculate({category:'materials', materials:total, taxAmount:totalTax}),
                     
-                    props.save({type:"materials", materials:items})
+                    props.save({type:"materials", materials:items, cityState: cityState, taxRate: (taxRate * 100)})
                 }
             />
             </div>

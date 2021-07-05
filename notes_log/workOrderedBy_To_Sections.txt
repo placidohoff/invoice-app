@@ -1,0 +1,40 @@
+..*Implementing adding text to who is the "To" and "Work ordered by". When the user clicks either one of the lines to electronically sign the section, it will open a text box. Put this text box in a form so that when the user presses enter it will save that entered text in a thick pen stroke style css.
+
+..*Once I have that I have to make sure I add this to the database object so that it can be saved and recovered.
+
+Mon
+	8am - 930pm Putting up the quick panel poll
+	10am - 430pm The Mill (Pulling Circuits, Demolition)
+
+Tues	8am -	The Mill 
+	11am - 430 Installing new Outlet Circuit for 3rd floor apt
+
+Wednes	9am - 11am 137 Washington
+	12pm - 430 The Mill (Demolition old wire, running light whip wires)
+
+Thurs
+	8am - 4pm Installing lights, Running wires, Installing Pipes
+
+Fri	
+	8am - 4pm Installing fixtures and troubleshooting circuits
+
+
+
+Mon
+	8am - 4pm - Energizing lights in rooms. Troubleshooting
+
+Tues
+
+	7am - 3pm - Running wire for lights in common area
+
+Wed
+	8am - 4pm - Energizing the lights in common area
+
+Thurs
+	8am - 4pm - Installing lights in hallway. Changing lights in room 3J 
+
+Fri
+	8am - 4pm - Installing the lights
+
+Basement to get done asap
+

@@ -83,23 +83,29 @@ function OtherCharges(props){
             >
                 Add New
             </button> */}
-            <br/><br/>
-            <input 
-                type="text"
-                className="othercharges__totalLabel"
-                value={"Total Other:"}
-    
-            />
-            <input 
-                type="number"
-                className="othercharges__total"
-                value={Number(total).toFixed(2)}
-                onChange={
-                    props.calculate({category:'other', value:total}),
-                    props.save({type: 'other', otherCharges: items})
-                }
+            
+            <div
+                style={{
+                    marginTop: '20px'
+                }}
+            >
+                <input 
+                    type="text"
+                    className="othercharges__totalLabel"
+                    value={"Total Other:"}
+        
+                />
+                <input 
+                    type="number"
+                    className="othercharges__total"
+                    value={Number(total).toFixed(2)}
+                    onChange={
+                        props.calculate({category:'other', value:total}),
+                        props.save({type: 'other', otherCharges: items})
+                    }
 
-            />
+                />
+            </div>
         </div>
     )
 }

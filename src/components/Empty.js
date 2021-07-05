@@ -28,7 +28,7 @@ function getItems(type){
             price: 0,
             qty: 0
         }
-        for(let i = 0; i < 20; i++){
+        for(let i = 0; i < 24; i++){
             items.push(obj)
         }
     }
@@ -45,7 +45,7 @@ function getItems(type){
     return items;
 }
 
-export const jobData = {
+export const emptyJob = {
     //invoiceNumber: invoiceNumber + 1 ,
     description: '',
     isNew: true,
@@ -58,7 +58,9 @@ export const jobData = {
         orderTakenBy: '',
         phone: '',
         startingDate: '',
-        type: 'extra'
+        type: 'extra',
+        isToLineSet: [false,false,false],
+        toLineValue: [null, null, null]
     },
     jobName: '',
     labor: labors,
@@ -70,7 +72,9 @@ export const jobData = {
     totalMaterials: 0,
     totalOther: 0,
     username: '',
-    signatureImage: null
+    signatureImage: null,
+    cityState: 'RI',
+    taxRate: 7
 }
 
 // export jobData

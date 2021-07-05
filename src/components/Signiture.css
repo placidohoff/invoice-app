@@ -40,6 +40,12 @@
 
 }
 
+@import url('https://fonts.googleapis.com/css?family=Kalam');
+
+.signature{
+    margin-top: 50px;
+}
+
 .signitureCanvas{
     border: 1px solid black;
     /* width: 100%; */
@@ -72,4 +78,9 @@
       width: 345px;
       position: absolute;
       margin-top: -50px;
+  }
+
+  .signiture__workOrderedBy{
+    font-family: 'Kalam';
+    font-size: 22px;
   }

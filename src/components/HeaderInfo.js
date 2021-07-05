@@ -54,6 +54,15 @@ function HeaderInfo(props){
                 <br/>
                 <div className="headerinfo__inputContainer">
                     <div className="headerinfo__labelWrap">
+                        <span style={{float: 'right'}}>Zip:</span>
+                    </div>
+                    <div style={{float: 'right', marginTop: '-23px', width:'175px'}}>
+                        <input value={props.zip} onChange={e => {props.changeVal({type:'zip', value: e.target.value })}} type="text" />
+                    </div>
+                </div> 
+                <br/>
+                <div className="headerinfo__inputContainer">
+                    <div className="headerinfo__labelWrap">
                         <span style={{float: 'right'}}>Job Name:</span>
                     </div>
                     <div style={{float: 'right', marginTop: '-23px', width:'175px'}}>

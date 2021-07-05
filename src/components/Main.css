@@ -55,7 +55,7 @@
 .main__topButtons{
     display: flex;
     flex-direction: row;
-    margin-left: 526px;
+    margin-left: 100px;
     /* display: ; */
 }
 .main__topButtons_inner{

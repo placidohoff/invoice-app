@@ -3,16 +3,17 @@ import './ViewJobs.css'
 import { useStateValue } from './StateProvider.js'
 import { useHistory } from 'react-router-dom'
 import { db } from '../firebase.js'
-import { jobData } from './Empty.js'
+import { emptyJob } from './Empty.js'
 import JobItem from './JobItem'
 import ListJob from './ListJob.js'
 import { List, setRef } from '@material-ui/core'
 import ConfirmBox from './ConfirmBox.js'
 import HeaderInfo from './HeaderInfo.js'
+import HeadStrip from './HeadStrip.js'
 
 
 function ViewJobs(){
-    const [{user, isNew, job, superUser}, dispatch] = useStateValue();
+    const [{user, isNew, job, superUser, loadedUser}, dispatch] = useStateValue();
     const history = useHistory();
     const [jobsList, setJobsList] = useState([])
     const [num, setNum] = useState(5)
@@ -39,6 +40,7 @@ function ViewJobs(){
     const [address, setAddress] = useState('')
     const [state, setState] = useState('')
     const [city, setCity] = useState('')
+    const [zip, setZip] = useState('')
     const [jobName, setJobName] = useState('')
     const [phone, setPhone] = useState('')
     const [orderTakenBy, setOrderTakenBy] = useState('')
@@ -65,6 +67,9 @@ function ViewJobs(){
             case 'city':
                 setCity(val.value)
             break;
+            case 'zip':
+                setZip(val.value)
+            break;
             case 'jobName':
                 setJobName(val.value)
             break;
@@ -83,12 +88,24 @@ function ViewJobs(){
         }
     }
 
+    const [space, setSpace] = useState('         ')
+
     const proceedToInvoice = () => {
         // alert('yo')
         if(orderNumber == '' || orderDate == '' || address == '' || state == '' || city == '' || jobName == '' || phone == '' || orderTakenBy == '' || startDate == ''){
             setErrorMessage('Please fill out all fields')
         }
         else{
+            // dispatch({
+            //     type: 'NEW_JOB',
+            //     item: {
+            //         jobData: jobData,
+            //         jobName: jobData.jobName,
+            //         doc: doc,
+            //         username: name[0],
+            //         invoiceNumber: invoiceNumber + 1
+            //     }
+            // })
             dispatch({
                 type: 'PROCEED_TO_INVOICE',
                 item:{
@@ -98,12 +115,57 @@ function ViewJobs(){
                         address: address,
                         state: state,
                         city: city,
+                        zip: zip,
                         jobName: jobName,
                         phone: phone,
                         orderTakenBy: orderTakenBy,
                         startingDate: startDate,
-                        type: type
-                    }
+                        type: type,
+                        toLineVal: [null,null,null],
+                        isToLineSet: [false,false,false]
+
+                    },
+                    jobData:{
+                        invoiceNumber: invoiceNumber + 1,
+                        isFinalized: false,
+                        // docName: '',
+                        doc: jobName,
+                        isNew: true,
+                        username: name[0],
+                        jobName: jobName,
+                        description:job.description,
+                        headerInfo: {
+                            orderNumber: orderNumber,
+                            orderDate: orderDate,
+                            address: address,
+                            state: state,
+                            city: city,
+                            zip: zip,
+                            jobName: jobName,
+                            phone: phone,
+                            orderTakenBy: orderTakenBy,
+                            startingDate: startDate,
+                            type: type,
+                            dateCompleted: '',
+                            toLineVal: [null,null,null],
+                            isToLineSet: [false,false,false]
+                        },
+                        labor: emptyJob.labor,
+                        materials: emptyJob.materials,
+                        otherCharges: emptyJob.otherCharges,
+                        totalTax: 0,
+                        total: 0,
+                        totalLabor: 0,
+                        totalMaterials: 0,
+                        totalOther: 0,
+                        signatureImage: null,
+                        workOrderedBy: space,
+                        cityState: 'RI',
+                        taxRate: 7
+                    },
+                    doc: jobName,
+                    
+                    invoiceNumber: invoiceNumber + 1
                 }
             })
             //AND THEN DISPATCH 'NEW_JOB'
@@ -113,16 +175,21 @@ function ViewJobs(){
     }
 
     useEffect(() => {
-        console.log(`YOOOOOOO: ${job.username}`)
+        //console.log(`YOOOOOOO: ${job.username}`)
         if(job.username == '' || job.username == undefined){
             // history.push('/login')
         }
         else{
             
-            if(name == 'tester' && !superUser || name == 'seyheng_theng' && !superUser)
+            if(name == 'tester' && !superUser || name == 'seyheng_theng' && !superUser || name == 'choff' && !superUser)
             {
+                //NEED A 2ND LAYER OF CHECK TO SEE IF THE 2ND PART OF THE NAME IS INDEED 'RCIELECTRICS.COM'. "LASTNAME VARIABLE?"
                 dispatch({
-                    type: 'SUPER_USER'
+                    type: 'SUPER_USER',
+                    item:{
+                        email: user
+                    }
+                    
                 })
                 history.push('/dashboard')
             }else{
@@ -149,8 +216,22 @@ function ViewJobs(){
 
             }
             )
-        }    
+        
+            }    
 
+            if(name == 'sample' && superUser){
+                setOrderNumber(Number(1000 + (Math.random() * (9999 - 1000))).toFixed(0))
+                setOrderDate(`${(new Date()).getMonth()+1}/${(new Date()).getDate()} /${(new Date()).getFullYear()}`)
+                setAddress(`${Number(10 + (Math.random() * (999 - 10))).toFixed(0)} Fake St`)
+                setState('RI')
+                setCity('Providence')
+                setZip('02818')
+                setJobName(`Sample Job Name #${Number(10 + (Math.random() * 999)).toFixed(0)}`)
+                setPhone('401-555-9876')
+                setOrderTakenBy('Sample Order Taker')
+                setStartDate(`${(new Date()).getMonth()+1}/${(new Date()).getDate() + 7} /${(new Date()).getFullYear()}`)
+                //alert(orderNumber)
+            }
         }
 
         setTimeout(() => {
@@ -159,6 +240,13 @@ function ViewJobs(){
     }, [])
 
     return(
+        <div>
+            {
+                superUser ?
+                <HeadStrip />
+                :
+                null
+            }
         <div 
             className="viewjobs"
             style={{
@@ -166,8 +254,22 @@ function ViewJobs(){
                 flexDirection: 'row'
             }}    
         >
-        <div>
-           <div>Here is a list of the jobs:</div>
+            
+        <div
+            style={{
+                width: '350px'
+            }}
+        >
+           <div>Here is a list of the jobs for
+               <br/> 
+               <div
+                    style={{
+                        marginTop: '10px'
+                    }}
+                >
+                    {superUser? user : user}:
+                </div>
+            </div>
            <br />
            {
                jobsList.length > 0 ?
@@ -201,7 +303,9 @@ function ViewJobs(){
         </div>
         <div 
             style={{
-                
+                marginLeft: '35%',
+                marginTop: '10px',
+                position: 'absolute'
             }}
         >
         {
@@ -230,17 +334,20 @@ function ViewJobs(){
 
                     // history.push('/jobdetails')
                     setCreateNewInvoice(!createNewInvoice)
-                    setErrorMessage('')
+                    if(name !== 'sample' && !superUser){
+                        setErrorMessage('')
 
-                    setOrderNumber('')
-                    setOrderDate('')
-                    setAddress('')
-                    setState('')
-                    setCity('')
-                    setJobName('')
-                    setPhone('')
-                    setOrderTakenBy('')
-                    setStartDate('')
+                        setOrderNumber('')
+                        setOrderDate('')
+                        setAddress('')
+                        setState('')
+                        setCity('')
+                        setZip('')
+                        setJobName('')
+                        setPhone('')
+                        setOrderTakenBy('')
+                        setStartDate('')
+                    }
                     setType('daywork')
                 }}
 
@@ -271,6 +378,7 @@ function ViewJobs(){
                         address={address}
                         state={state}
                         city={city}
+                        zip={zip}
                         jobName={jobName}
                         phone={phone}
                         orderTakenBy={orderTakenBy}
@@ -327,6 +435,7 @@ function ViewJobs(){
             null
         }
         
+        </div>
         </div>
         </div>
     )

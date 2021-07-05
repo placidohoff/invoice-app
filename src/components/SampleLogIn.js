@@ -7,9 +7,9 @@ import { db } from '../firebase.js'
 
 
 
-function Login(){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+function SampleLogIn(){
+    const [email, setEmail] = useState('sample@portfolio.com');
+    const [password, setPassword] = useState('123456');
     const [userError, setUserError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const [{user}, dispatch] = useStateValue();
@@ -22,16 +22,10 @@ function Login(){
         
     }, [])
 
-    const loginUser = (e) => {
+    const login = (e) => {
         e.preventDefault();
     
-        if(email == '' || password == ''){
-            setUserError(true)
-            setErrorMessage('Please fill out both fields')
-        }
-        else{
-            if(email === 'sample@portfolio.com'){
-                auth
+            auth
                 .signInWithEmailAndPassword(email, password)
                 //'auth' is returnedS onSuccess:
                 .then(auth => { 
@@ -45,29 +39,6 @@ function Login(){
                     })
                     history.push('/jobs');
                 })
-            }else{
-                auth
-                .signInWithEmailAndPassword(email, password)
-                //'auth' is returnedS onSuccess:
-                .then(auth => { 
-                    dispatch({
-                        type: 'LOGIN',
-                        item: {
-                            user: email,
-                            username: email.split('@')
-                        }
-                    })
-                    history.push('/jobs');
-                })
-                .catch(
-                    error =>{ 
-                        //alert(error.message)
-                        setUserError(true)
-                        setErrorMessage("The login was unsuccessful")
-                    }
-                )
-            }
-        }
     }
 
     const createUser = (e) => {
@@ -118,10 +89,12 @@ function Login(){
 
 
     return(
-        <div className="login">
+        <div className="login"
+            style={{}}
+        >
             <form>
                 
-                <input 
+                {/* <input 
                     value={email}
                     onChange={e => {setEmail(e.target.value)}}
                     type="text"
@@ -134,35 +107,37 @@ function Login(){
                     onChange={e => {setPassword(e.target.value)}}
                     type="password"
                     placeholder="password"
-                />
+                /> */}
+                <h3
+                    style={{
+                        textAlign: 'center'
+                    }}
+                >Welcome to this sample web application used for invoicing construction jobs. 
+                    <br/><br/>This appliciation was built and is maintined by 
+                    <br/><br/>Placido Hoff</h3>
                 <br />
                 <div
                     style={{
-                        display: 'flex',
-                        flexDirection: 'column'
+                        
+                        marginLeft: '35%'
                     }}
                 >
                     <button
                         type="submit"
-                        onClick={loginUser}
+                        onClick={login}
                         style={{
                             width: '180px',
-                            marginTop: '5px'
+                            height: '30px',
+                            fontWeight: 'bold',
+                            marginTop: '5px',
+                            backgroundColor: 'gold'
+                            
+                            
                         }}
                     >
-                        Login
+                        CLICK HERE
                     </button>
-                    <button
-                        type="submit"
-                        onClick={createUser}
-                        style={{
-                            width: '180px',
-                            marginTop: '5px'
-                        }}
-                        // onClick={createUser}
-                    >
-                        Create
-                    </button>
+                    
                 </div>
             </form>
             {
@@ -179,4 +154,4 @@ function Login(){
     )
 }
 
-export default Login;
+export default SampleLogIn;

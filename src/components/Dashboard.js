@@ -3,16 +3,18 @@ import { db } from '../firebase.js'
 import { useStateValue } from './StateProvider.js'
 import { useHistory } from 'react-router-dom'
 import { auth } from '../firebase.js'
+import HeadStrip from './HeadStrip.js'
 
 
 
 function Dashboard(){
-    const [{user, isNew, job, superUser}, dispatch] = useStateValue();
+    const [{user, isNew, job, superUser, superUserName}, dispatch] = useStateValue();
     const [emails, setEmails] = useState([])
     const history = useHistory();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [createNew, setCreateNew] = useState(false)
+    const [username, setUsername] = useState(user.split('@'))
 
     const emailIsValid = (str) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str)
@@ -92,10 +94,23 @@ function Dashboard(){
     
 
     return(
+        <div>
+            
+            <div
+            style={{
+                backgroundColor: 'black',
+                color: 'white'
+            }}
+        >
+            Welcome {superUserName[0]}, Here is a list of client emails:
+        </div>
+        <br/>
+    
         <div
             style={{display:'flex', flexDirection:'row'}}
         >
         <div>
+            
             {
                 emails.map((data, index) => (
 
@@ -110,6 +125,7 @@ function Dashboard(){
                                 item: {
                                     user: data,
                                     username: data.split('@')
+ 
                                 }
                             })
                             history.push('/jobs');
@@ -118,7 +134,8 @@ function Dashboard(){
                             border: '1px solid black',
                             padding: '5px',
                             marginBottom: '2px',
-                            marginTop: '2px'
+                            marginTop: '6px',
+                            cursor: 'default'
                         }}
                     >
                         {data}
@@ -129,11 +146,17 @@ function Dashboard(){
 
             }
         </div>
-        <div>
-            <input 
+        <div
+            style={{
+                // alignSelf:'flex-end'
+                marginLeft: '30%',
+                marginTop: '10px'
+            }}
+        >
+            {/* <input 
                 type="text"
                 placeholder="Search"
-            />
+            /> */}
             <div
                 onClick={() => {setCreateNew(!createNew)}}
                 style={{
@@ -142,11 +165,15 @@ function Dashboard(){
                     borderRadius: '20px',
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    cursor: 'default',
+                    width: '150px',
+                    textAlign: 'center'
                 }}
             >
-                {createNew ? <span>Hide</span> : <span>Create New</span> }
+                {createNew ? <span>&#60;&#60; Go Back</span>  : <span>Create New <br/> Email Address &#62;&#62;</span> }
             </div>
+            <br/>
             {
                 createNew
                 ?
@@ -178,6 +205,7 @@ function Dashboard(){
             :
             <div></div>
         }
+        </div>
         </div>
         </div>
     )

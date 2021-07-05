@@ -17,14 +17,15 @@ import Pdf from 'react-to-pdf'
 import gsap from 'gsap'
 import Details_Mobile from './Details_Mobile.js'
 import Signature_Mobile from './Signature_Mobile.js'
+import HeadStrip from './HeadStrip'
 
 function Main(){
-    const [{user, jobName, job, docName, username, invoiceNumber, isNew}, dispatch] = useStateValue();
+    const [{user, jobName, job, docName, username, invoiceNumber, isNew, superUser, superUserName}, dispatch] = useStateValue();
   // const [username, setUsername] = useState(job.username)
     const [totalLabor, setTotalLabor] = useState(job.totalLabor)
   const [totalMaterials, setTotalMaterials] = useState(job.totalMaterials)
   const [totalOther, setTotalOther] = useState(job.totalOther)
-  const [tax, setTax] = useState(job.tax)
+  const [tax, setTax] = useState(job.totalTax)
   const [total, setTotal] = useState(job.total)
   const [jobObject, setJobObject] = useState(job)
 
@@ -37,6 +38,10 @@ function Main(){
   const [invoiceNum, setInvoiceNum] = useState(job.invoiceNumber)
   const history = useHistory();
   const [signatureImage, setSignatureImage] = useState(job.signatureImage)
+  const [isFinalized, setIsFinalized] = useState(job.isFinalized)
+  const [workOrderedBy, setWorkOrderedBy] = useState(job.workOrderedBy)
+  const [cityState, setCityState] = useState(job.cityState)
+  const [taxRate, setTaxRate] = useState(job.taxRate)
 
   const [canEdit, setCanEdit] = useState(false)
   // const [testString, setTestString] = useState(0)
@@ -61,6 +66,14 @@ function Main(){
       window.addEventListener('resize', resizeFunction)
       if(user == 'tester')
         setCanEdit(true)
+      //calculateTotal('manual')
+
+      //alert(taxRate)
+      console.log('QUEEEEEE?!?!?!?', job)
+      if(taxRate == undefined || cityState == undefined){
+        setTaxRate(7)
+        setCityState('RI')
+      }
     },[])
 
     useEffect(() => {
@@ -78,18 +91,24 @@ function Main(){
         username: username,
         description: description,
         signatureImage: sig,
-        invoiceNumber: invoiceNum
+        invoiceNumber: invoiceNum,
+        isFinalized: isFinalized,
+        workOrderedBy: workOrderedBy,
+        taxRate: taxRate,
+        cityState: cityState
       })
-      // console.log(jobObject)
+      console.log(jobObject)
 
 
       // setTestString('hello')
-    }, [materialsList, otherChargesList, laborList, headerInfo, description, signatureImage])
+    }, [materialsList, otherChargesList, laborList, headerInfo, description, signatureImage, workOrderedBy, taxRate, cityState])
 
     const calculateTotal = (obj) => {
-      console.log(obj)
+      // console.log(obj)
       if(obj.category === 'materials'){
-        setTotalMaterials(Number(obj.value))
+        setTotalMaterials(Number(obj.materials))
+        setTax(Number(obj.taxAmount))
+        console.log(tax)
       }
       else if(obj.category === 'labor'){
         console.log(obj.value)
@@ -100,57 +119,69 @@ function Main(){
         setTotalOther(Number(obj.value))
         console.log(obj.value)
       }
+
+      else if(obj == 'manual'){
+        let materialsTotal = 0;
+        let laborTotal = 0;
+        let othersTotal = 0;
+        for(let i = 0; i < materialsList.length; i++){
+          materialsTotal += Number(materialsList[i].amount)
+          console.log(`MATERIALS: ${materialsTotal}`)
+          // setTotalMaterials(materialsTotal)
+        }
+        for(let i = 0; i < laborList.length; i++){
+          // console.log(laborList)
+          laborTotal += Number(laborList[i].amount)
+          console.log(`LABOR: ${laborTotal}`)
+          // setTotalLabor(laborTotal)
+        }
+        for(let i = 0; i < otherChargesList.length; i++){
+          othersTotal += Number(otherChargesList[i].price)
+          console.log(`OTHER: ${othersTotal}`)
+          // setTotalOther(othersTotal)
+        }
+      
+        setTotalMaterials(materialsTotal)
+        setTotalLabor(laborTotal)
+        setTotalOther(othersTotal)
+
+      }
       
        
-      setTotal(Number(totalMaterials + totalLabor + totalOther).toFixed(2))
+      setTotal(Number(totalMaterials + totalLabor + totalOther + tax).toFixed(2))
 
     }
 
     const saveInvoice = (obj) => {
       // setJobObject(obj)
       if(obj.type === 'materials'){
-        // dispatch({
-        //   type: 'SAVE_MATERIALS',
-        //   item: {
-        //     materials: obj.data
-        //   }
-        // })
+        
         setMaterialsList(obj.materials)
-        // setDetailsComponent(<Details 
-        //                       calculate = {calculateTotal}
-        //                       materials = {materialsList}
-        //                       save = {saveInvoice}
-        //                     />)
-        // setDetailsMobileComponent(<Details_Mobile 
-        //                             materials={materialsList}
-        //                             totalMaterials={totalMaterials}
-        //                             labor={laborList}
-        //                             totalLabor={totalLabor}            
-        //                             otherCharges={otherChargesList}
-        //                             totalOther={totalOther}
-        //                             calculate = {calculateTotal}
-        //                             save = {saveInvoice}
-        //                           />)
-        // console.log(obj.materials)
-        //console.log('YOOOOOOOO!!!!!!!!!!')
-
+        setCityState(obj.cityState)
+        setTaxRate(obj.taxRate)
+       
       }
       else if(obj.type === 'other'){
         setOtherChargesList(obj.otherCharges)
-        console.log(otherChargesList)
+        // console.log(otherChargesList)
       }
       else if(obj.type == 'labor'){
         setLaborList(obj.labor)
-        console.log('YOOOOOOO!!!!')
-        console.log(laborList)
+        // console.log('YOOOOOOO!!!!')
+        // console.log(laborList)
       }
       else if(obj.type == 'header'){
         setHeaderInfo(obj.headerInfo)
-        console.log(headerInfo)
+        console.log("HEADER: ", obj.headerInfo)
+        // console.log(headerInfo)
       }
       else if(obj.type == 'description'){
         setDescription(obj.description)
-        console.log(description)
+        // console.log(description)
+      }
+      else if(obj.type == 'work_ordered_by'){
+        setWorkOrderedBy(obj.workOrdered)
+        console.log("WORK_ORDERED ", job)
       }
 
     
@@ -333,32 +364,33 @@ function Main(){
     const push = () => {
       //const title = prompt("Hello World")
       let title;
-      let materialsTotal = 0;
-      let laborTotal = 0;
-      let othersTotal = 0;
+      // let materialsTotal = 0;
+      // let laborTotal = 0;
+      // let othersTotal = 0;
 
-      for(let i = 0; i < materialsList.length; i++){
-        materialsTotal += Number(materialsList[i].amount)
-        console.log(`MATERIALS: ${materialsTotal}`)
-        // setTotalMaterials(materialsTotal)
-      }
-      for(let i = 0; i < laborList.length; i++){
-        // console.log(laborList)
-        laborTotal += Number(laborList[i].amount)
-        console.log(`LABOR: ${laborTotal}`)
-        // setTotalLabor(laborTotal)
-      }
-      for(let i = 0; i < otherChargesList.length; i++){
-        othersTotal += Number(otherChargesList[i].price)
-        console.log(`OTHER: ${othersTotal}`)
-        // setTotalOther(othersTotal)
-      }
+      // for(let i = 0; i < materialsList.length; i++){
+      //   materialsTotal += Number(materialsList[i].amount)
+      //   console.log(`MATERIALS: ${materialsTotal}`)
+      //   // setTotalMaterials(materialsTotal)
+      // }
+      // for(let i = 0; i < laborList.length; i++){
+      //   // console.log(laborList)
+      //   laborTotal += Number(laborList[i].amount)
+      //   console.log(`LABOR: ${laborTotal}`)
+      //   // setTotalLabor(laborTotal)
+      // }
+      // for(let i = 0; i < otherChargesList.length; i++){
+      //   othersTotal += Number(otherChargesList[i].price)
+      //   console.log(`OTHER: ${othersTotal}`)
+      //   // setTotalOther(othersTotal)
+      // }
+      
+      calculateTotal('manual')
 
-      setTotalMaterials(materialsTotal)
-      setTotalLabor(laborTotal)
-      setTotalOther(othersTotal)
+      // setTotalMaterials(materialsTotal)
+      // setTotalLabor(laborTotal)
+      // setTotalOther(othersTotal)
 
-      console.log("YOOOOOOOO.... ", invoiceNumber)
 
       setJobObject({
         headerInfo: headerInfo,
@@ -367,15 +399,27 @@ function Main(){
         materials: materialsList,
         otherCharges: otherChargesList,
         tax: tax,
-        total: laborTotal + materialsTotal + othersTotal,
-        totalLabor: laborTotal,
-        totalMaterials: materialsTotal,
-        totalOther: othersTotal,
+        // total: laborTotal + materialsTotal + othersTotal,
+        // totalLabor: laborTotal,
+        // totalMaterials: materialsTotal,
+        // totalOther: othersTotal,
+        total: total,
+        totalLabor: totalLabor,
+        totalMaterials: totalMaterials,
+        totalOther: totalOther,
         username: username,
         description: description,
         invoiceNumber: invoiceNum,
         isNew: false,
-        signatureImage: sig
+        signatureImage: signatureImage,
+        isFinalized: isFinalized,
+        toLineVal: headerInfo.toLineVal,
+        isToLineSet: headerInfo.isToLineSet,
+        workOrderedBy: workOrderedBy,
+        cityState: cityState,
+        taxRate: taxRate,
+        totalTax: tax
+
       })
       try{
         db.collection(username).doc(docName).set({
@@ -388,6 +432,12 @@ function Main(){
         //console.log(jobObject)
       console.log(`Success? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
       console.log(jobObject)
+      dispatch({
+        type: 'POST_SAVE',
+        item: {
+          val: jobObject
+        }
+      })
       {animate(true)}
       }catch(err){
         // console.log(`Error? Collection: ${username}, Document: ${docName}, Body: ${headerInfo, jobObject} `)
@@ -410,10 +460,10 @@ function Main(){
           })
 
         }else{
-          console.log("JOB NOT NEW")
+          // console.log("JOB NOT NEW")
         }
       }catch(err){
-        console.log("INVOICE UPPER ERROR: ", err)
+        // console.log("INVOICE UPPER ERROR: ", err)
       }
     }
 
@@ -442,10 +492,10 @@ function Main(){
       for(let i = 0; i < materialsList.length; i++){
         
         materialsTotal += Number(materialsList[i].amount)
-        console.log('TESTING....')
-        console.log(materialsList)
-        console.log(laborList)
-        console.log(otherChargesList)
+        // console.log('TESTING....')
+        // console.log(materialsList)
+        // console.log(laborList)
+        // console.log(otherChargesList)
         
       }
       setTimeout(function() {
@@ -477,6 +527,16 @@ function Main(){
       }
 
 
+    }
+
+    const print = () => {
+      //alert('hello')
+      push();
+      history.push('/print')
+      // let area = document.getElementsByClassName('App')
+      //area[0].print();
+      // window.print();
+      // console.log("PRINT")
     }
 
     const Button = React.forwardRef((props, ref) => {
@@ -520,6 +580,20 @@ function Main(){
 
     return(
         <div className="main">
+          {
+            superUser ? 
+            <div
+              style={{
+                marginLeft: '500px',
+                width: '100%'
+              }}
+            >
+              <HeadStrip />
+            
+            </div>
+            :
+            null
+          }
         
           {
             job.isNew ? getInvoice('true') : loadTotals()
@@ -537,7 +611,16 @@ function Main(){
               <div style={{marginRight:'15px'}}>
                 <Button ref={docToPrint} />
               </div>
-              <div style={{marginRight:'55px'}}> 
+              <div style={{marginRight:'15px',  display:'flex', flexDirection:'row'}}> 
+                <button
+                  onClick={print}
+                >
+                  <img  style={{width: '45px', height: '45px'}} src="https://www.pinclipart.com/picdir/middle/33-336347_clipart-printer-icon-print-clipart-png-download.png" />
+                  
+                </button>
+                
+              </div>
+              <div style={{marginRight: '50px'}}>
                 <button
                   onClick={push}
                 >
@@ -574,8 +657,10 @@ function Main(){
                 >
                   Save Failed
                 </div>
-              </div>
+
+                </div>
               <div>
+                
               <button
                   onClick={confirmDelete}
               >
@@ -609,7 +694,7 @@ function Main(){
             job = {jobObject}
             save = {saveInvoice}
             invoiceNum = {invoiceNum}
-            docName={docName}
+            docName={docName} 
           />
 
           {/* {headerComponent} */}
@@ -634,6 +719,8 @@ function Main(){
               <Signiture 
                 signatureImage={jobObject.signatureImage}
                 saveSignature={saveSignature}
+                save={saveInvoice}
+                workOrderedBy={workOrderedBy}
               />
 
               {/* {signatureComponent} */}
@@ -645,6 +732,7 @@ function Main(){
               
                 <Description 
                   save = {saveInvoice}
+                  description = {description}
                 />
 
                 {/* {descriptionComponent} */}

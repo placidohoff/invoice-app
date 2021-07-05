@@ -1,0 +1,9 @@
+.taxmodule{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.taxmodule >div{
+    margin-right: 40px;
+}

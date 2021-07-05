@@ -4,7 +4,7 @@ import { useStateValue } from './StateProvider.js'
 
 function Description(props){
     const [{job}, dispatch] = useStateValue()
-    const [description, setDescription] = useState(job.description)
+    const [description, setDescription] = useState(props.description)
 
     useEffect(() => {
         props.save({type: 'description', description:description})

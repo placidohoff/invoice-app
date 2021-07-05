@@ -14,6 +14,7 @@
 
 .description__body{
     border: 1px solid black;
-    height: 140px;
+    height: 184px;
     width: 351px;
+    font-size: small;
 }

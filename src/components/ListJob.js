@@ -7,7 +7,7 @@ import ConfirmBox from './ConfirmBox.js'
 import classNames from 'classnames'
 
 function ListItem(props){
-    const [{user, isNew, job}, dispatch] = useStateValue();
+    const [{user, isNew, job, superUser, superUserName}, dispatch] = useStateValue();
     const history = useHistory();
 
     const [total, setTotal] = useState(0)
@@ -80,8 +80,9 @@ function ListItem(props){
                             docName: props.docName,
                             username: job.username,
                             invoiceNumber: props.invoiceNum,
-                            signatureImage: props.signatureImage
-                        
+                            signatureImage: props.signatureImage,
+                            isSuperUser: superUser,
+                            superUserName: superUserName
                         }
                     })
                     // console.log(name[0])
@@ -93,23 +94,56 @@ function ListItem(props){
                 key={Math.random()}
                 className="viewjobs__name"
                        
-                        style={{cursor:'default'}}
-                    >
+                        style={{
+                            cursor:'default',
+                            fontWeight: 'bold'
+                        }}
+            >
                         {props.docName}
             </span>
                     <br />
-                    <span>{props.data.headerInfo.address}</span>
+            <div
+                style={{
+                    marginTop: '5px',
+                    marginLeft: '5px',
+                    marginBottom: '10px'
+                }}
+            >
+                 {props.data.headerInfo.address}, {props.data.headerInfo.city}, {props.data.headerInfo.state}
+            </div>
                     {/* <div className="viewjobs__del">X</div> */}
+                    
+                    
+                    
+                    <span>
+                        Materials: $<span>{Number(totalMaterials).toFixed(2)}</span>
+                    </span>
+                    <br/>
+                    <span>
+                        Labor: $<span>{Number(totalLabor).toFixed(2)}</span>
+                    </span>
+                    <br/>
+                    <span>
+                        Other: $<span>{Number(totalOther).toFixed(2)}</span>
+                    </span>    
                     <br />
-                    <span>Total: $<span>{Number(total).toFixed(2)}</span></span>
-                    &nbsp; &nbsp;
-                    <span>Materials: $<span>{Number(totalMaterials).toFixed(2)}</span></span>
-                    &nbsp; &nbsp;
-                    <span>Labor: $<span>{Number(totalLabor).toFixed(2)}</span></span>
-                    &nbsp; &nbsp;
-                    <span>Other: $<span>{Number(totalOther).toFixed(2)}</span></span>    
-                    <br />
-                    <span>{props.invoiceNum}</span>        
+                    <div
+                        style={{
+                            marginTop: '5px',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        Total: $<span>{Number(totalMaterials + totalLabor + totalOther).toFixed(2)}</span>
+                    </div>
+                    
+                    <div
+                        style={{
+                            marginTop: '5px',
+                            marginLeft: '5px'
+                        }}
+                    >
+                        Invoice Number: {props.invoiceNum}
+                    </div>        
             </div>
             
             <div
@@ -124,6 +158,9 @@ function ListItem(props){
                     confirmDelete()
                 )
                 }
+                style={{
+                    cursor: 'pointer'
+                }}
             >
                 X
             </div>

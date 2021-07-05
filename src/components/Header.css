@@ -247,7 +247,7 @@ input{
 }
 
 .header__orderTakenByBox{
-    width: 345px;
+    width: 344px;
 }
 
 .header__invoiceCustomerNumber{
@@ -260,6 +260,7 @@ input{
 .header__orderNumber{
     /* height: 10px; */
     width: 165px;
+    border-left: 1px solid black;
 }
 
 .header__address{
@@ -272,10 +273,11 @@ input{
 
 .header__startDate{
     width: 171px;
+    margin-top: 0px;
     /* border-left: none; */
 }
 .header__completeDate{
-    width: 171px;
+    width: 169px;
     /* border-left: none; */
 }
 .header__mobile{

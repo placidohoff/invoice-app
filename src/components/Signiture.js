@@ -1,20 +1,26 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import Popup from 'reactjs-popup'
 import SigniturePad from 'react-signature-canvas'
 import './Signiture.css'
 import { useStateValue } from './StateProvider.js'
 
+// @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
 function Signiture(props){
-    const [{user, jobName,invoiceNumber}, dispatch] = useStateValue();
-    const signiture = {
-        marginTop: '100px'
-    }
+    const [{user, jobName,invoiceNumber,job}, dispatch] = useStateValue();
+    // const signiture = {
+    //     marginTop: '100px'
+    // }
 
     const spaceOrder = '                                                         '
     const spaceSig = '                                                                         '
     const [imageURL, setImageURL] = useState(props.signatureImage)
     const sigCanvas = useRef([])
     const [sigClass, setSigClass] = useState("signitureTriggerPre")
+    const [isWorkOrderedBySet, setIsWorkOrderedBySet] = useState(true)
+    const [workOrderedBy, setWorkOrderedBy] = useState(job.workOrderedBy)
+
+    const divOrder = <span>{spaceOrder}</span>
 
     const saveSig = () => {
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"))
@@ -35,10 +41,19 @@ function Signiture(props){
         sigCanvas.current.clear()
     }
 
+    useEffect(() => {
+        props.save({type: 'work_ordered_by', workOrdered: workOrderedBy})
+    },[workOrderedBy]) 
+
+    useEffect(() => {
+        console.log("SIG.. ", job)
+    },[])
+
     return(
         <div
-        className="signature"
-        style={signiture}>
+            className="signature"
+            // style={signiture}
+        >
             <span
                 style={{
                     fontSize: '12px',
@@ -46,7 +61,7 @@ function Signiture(props){
                     marginLeft: '20px'
                 }}
             >
-                Work ordered by
+                Work ordered by:
             </span>
             <span style={{
                 // textDecoration: 'underline', 
@@ -57,12 +72,62 @@ function Signiture(props){
 
                 }}
             >
-                    { spaceOrder }
+                { 
+                    !isWorkOrderedBySet
+                    ?
+                        <span
+                            onClick={() => {
+                                let name = prompt("Who ordered this work?")
+                                if(name == '' || name === null)
+                                    setIsWorkOrderedBySet(false)
+                                else{
+                                    setWorkOrderedBy(name)
+                                // setWorkOrderedBy(prompt("Who ordered this work?"))
+                                    setIsWorkOrderedBySet(true)
+                                    dispatch({
+                                        type: 'WORK_ORDERED_BY',
+                                        item:{
+                                            val: name
+                                        }
+                                    })
+                                }
+                            }}
+                            
+                        >
+                        
+                            {spaceOrder}
+
+                        </span> 
+                    :
+                    <span 
+                        onClick={() => {
+                            let name = prompt("Who ordered this work?")
+                            if(name == '' || name === null)
+                                setIsWorkOrderedBySet(false)
+                            else{
+                                setWorkOrderedBy(name)
+                            // setWorkOrderedBy(prompt("Who ordered this work?"))
+                                setIsWorkOrderedBySet(true)
+                                dispatch({
+                                    type: 'WORK_ORDERED_BY',
+                                    item: {
+                                        val: name
+                                    }
+                                })
+                            }
+                            console.log("WORK_ORDERED_BY ", job)
+                        }}
+                        className="signiture__workOrderedBy"
+                        >
+                            {workOrderedBy}
+                        
+                    </span>
+                }
             </span>
             <br />
             <div 
                 style={{
-                    marginTop: '55px'
+                    marginTop: '45px'
                 }}
             >
                 <div

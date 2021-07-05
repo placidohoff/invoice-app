@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './LaborCharge.css'
+import { useStateValue } from './StateProvider';
 
 function LaborCharge(props){
+    const [{superUser, job}] = useStateValue()
     const [name, setName] = useState(props.name);
     const [hours, setHours] = useState(props.hours)
     const [rate, setRate] = useState(props.rate)
@@ -39,7 +41,7 @@ function LaborCharge(props){
                 type="text"   
                 className="laborcharge__name"
                 value={name}
-                onChange={e => {setName(e.target.value)}}
+                onChange={superUser && !job.isFinalized ? e => {setName(e.target.value)} : null}
                 
             />
             {/* <br /> */}
@@ -47,15 +49,15 @@ function LaborCharge(props){
                 type="number"
                 className="laborcharge__hours"
                 value={hours}
-                onChange={e => {setHours(e.target.value); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type: 'labor'})}}
-                onBlur={e => {setHours(Number(hours).toFixed(1)); setAmount(rate * hours); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type:'labor' })}}
+                onChange={superUser && !job.isFinalized ? e => {setHours(e.target.value); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type: 'labor'})} : null}
+                onBlur={superUser && !job.isFinalized ? e => {setHours(Number(hours).toFixed(1)); setAmount(rate * hours); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type:'labor' })}: null}
             />
             <input
                 type="number"
                 className="laborcharge__rate"
                 value={rate}
-                onChange={e => {setRate(e.target.value); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type: 'labor'})}}
-                onBlur={e => {setRate(Number(rate).toFixed(1)); setAmount(rate * hours); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type: 'labor'})}}
+                onChange={superUser && !job.isFinalized ? e => {setRate(e.target.value); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type: 'labor'})} : null}
+                onBlur={superUser && !job.isFinalized ? e => {setRate(Number(rate).toFixed(1)); setAmount(rate * hours); props.calculate({hours: hours, rate: rate, amount: amount, index: props.index, labor:{name: name, hours:hours, rate:rate, amount:amount}, type: 'labor'})} : null}
             />
             <input
                 type="number"

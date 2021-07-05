@@ -1,10 +1,13 @@
 export const initialState = {
     superUser: false,
+    loadedUserEmail: null, 
+    superUserName: null,
     user:'', 
     // invoiceNumber: 123456,
     //isNew: false,
     job:{
         // invoiceNumber: 123456,
+        isFinalized: false,
         docName: '',
         isNew: false,
         username: '',
@@ -20,6 +23,8 @@ export const initialState = {
             cityState: '',
             jobPhone: '',
             startingDate: '',
+            toLineVal: [null,null,null],
+            isToLineSet: [false,false,false]
         },
         description: '',
         materials:[
@@ -47,9 +52,13 @@ export const initialState = {
         totalLabor: 0,
         totalMaterials: 0,
         totalOther: 0,
-        tax: 0,
+        totalTax: 0,
+        taxRate: 0,
         total: 0,
-        signatureImage: null
+        signatureImage: null,
+        workOrderedBy: "_________",
+        isWorkOrderedBy: false,
+        cityState: ''
         
         
     }
@@ -58,16 +67,90 @@ export const initialState = {
 
 const reducer = (state, action) => {
     switch(action.type){
+        case 'SET_TAX':
+            state.job.taxRate = action.item.taxRate
+            state.job.cityState = action.item.cityState
+            //alert(action.item.taxRate)
+            return{
+                ...state,
+                taxRate: action.item.taxRate,
+                cityState: action.item.cityState
+            }
+        case 'SAMPLE':
+            state.user = action.item.user
+            state.job.username = action.item.username[0]
+            state.superUser = true
+            state.superUserName = action.item.email.split('@')
+
+            return{
+                ...state,
+                job: state.job,
+                user: action.item.user,
+                superUser: true,
+                superUserName: action.item.email.split('@')
+
+                
+            }
+        case 'WORK_ORDERED_BY':
+            state.job.workOrderedBy = action.item.val
+            state.job.isWorkOrderedBy = true
+            return{
+                ...state,
+                workOrderedBy: action.item.val,
+                isWorkOrderedBy: true
+            }
+        case 'POST_SAVE':
+            state.job = action.item.val
+            return{
+                ...state,
+                job: action.item.val
+            }
+        case 'TO_LINE_SET':
+            state.job.headerInfo.toLineVal = action.item.val
+            state.job.headerInfo.isToLineSet = action.item.val2
+            return{
+                ...state,
+                toLineVal: action.item.val,
+                isToLineSet: action.item.val2
+            }
         case 'PROCEED_TO_INVOICE':
             state.job.headerInfo = action.item.headerInfo
+            
+            //
+            state.docName = action.item.doc
+            state.jobName = action.item.headerInfo.jobName
+            state.isNew = true
+            state.job.isNew = true;
+            state.invoiceNumber = action.item.invoiceNumber
+            state.materials = action.item.jobData.materials
+            state.otherCharges = action.item.jobData.otherCharges
+            state.labor = action.item.jobData.labor
+            state.username = action.item.jobData.username
+
+            return{
+                ...state,
+                job: action.item.jobData
+
+                //
+                // job: action.item.jobData,
+                // jobName: action.item.jobName,
+                // docName: action.item.doc,
+                // username: action.item.username,
+                // invoiceNumber: action.item.invoiceNumber
+
+            }
+        case 'LOADED_USER_EMAIL':
+            state.loadedUserEmail = action.item.username
             return{
                 ...state
             }
         case 'SUPER_USER':
             state.superUser = true
+            state.superUserName = action.item.email.split('@')
             return{
                 ...state,
-                superUser: true
+                superUser: true,
+                superUserName: action.item.email.split('@')
             }
         case 'LOGIN':
             console.log(action.item.user)
@@ -89,14 +172,18 @@ const reducer = (state, action) => {
             state.username = action.item.username
             state.invoiceNumber = action.item.invoiceNumber
             state.signatureImage = action.item.signatureImage
+            state.superUser = action.item.isSuperUser
+            state.superUserName = action.item.superUserName
             return{
-                // ...state,
+                ...state,
                 job: action.item.jobData,
                 jobName: action.item.jobName,
                 docName: action.item.docName,
                 username: action.item.username,
                 invoiceNumber: action.item.invoiceNumber,
-                signatureImage: action.item.signatureImage
+                signatureImage: action.item.signatureImage,
+                superUser: action.item.isSuperUser,
+                superUserName: action.item.superUserName
             }
         case 'NEW_JOB':
             console.log('New Job')

@@ -25,6 +25,8 @@ import { jobData } from './components/Empty';
 import Main from './components/Main.js'
 import MobileViewItems from './components/MobileViewItems.js'
 import Dashboard from './components/Dashboard.js'
+import PrinterFriendly from './components/PrinterFriendly.js'
+import SampleLogIn from './components/SampleLogIn.js'
 
 function App() {
 
@@ -43,15 +45,21 @@ function App() {
           
         </Route>
 
+        <Route path="/sample">
+          
+          <SampleLogIn />
+          
+        </Route>
+
         <Route path="/dashboard">
 
           <Dashboard />
           
         </Route>
 
-        <Route path="/print">
+        {/* <Route path="/print">
           <Print />
-        </Route>
+        </Route> */}
 
         {/* <Route path="/pdf">
           <ToPdf />
@@ -65,6 +73,16 @@ function App() {
         <Route path="/mobileDetails">
           <MobileViewItems />
         
+        </Route>
+
+        <Route path="/print">
+          <PrinterFriendly />
+        
+        </Route>
+
+        <Route path="/">
+          <Login />
+          
         </Route>
       
 

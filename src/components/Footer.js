@@ -49,7 +49,7 @@ function Footer(props){
                 <input 
                     type="text"
                     className="footer__tax"
-                    value={tax}
+                    value={Number(props.tax).toFixed(2)}
                 />
                 <br/>
                 <input 
